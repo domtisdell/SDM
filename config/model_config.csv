@@ -1,0 +1,78 @@
+parameter,value,description,data_type
+# Model Training Parameters
+train_test_split,0.8,Training data percentage,float
+validation_split,0.2,Validation data percentage,float
+random_state,42,Random seed for reproducibility,int
+cross_validation_folds,3,Number of CV folds,int
+early_stopping_rounds,50,Early stopping patience,int
+
+# Feature Engineering Parameters - Minimal for small dataset
+max_lag_features,1,Maximum lag periods for annual time series features,int
+rolling_window_sizes,"[2]",Rolling window sizes for annual moving averages,list
+outlier_threshold,3.0,Standard deviations for outlier detection,float
+correlation_threshold,0.95,Correlation threshold for feature selection,float
+
+# XGBoost Parameters - Simplified for small dataset
+xgb_n_estimators,100,Number of boosting rounds,int
+xgb_max_depth,3,Maximum tree depth,int
+xgb_learning_rate,0.05,Learning rate,float
+xgb_subsample,0.8,Subsample ratio,float
+xgb_colsample_bytree,0.8,Feature subsample ratio,float
+xgb_reg_alpha,0.1,L1 regularization,float
+xgb_reg_lambda,1.0,L2 regularization,float
+xgb_n_jobs,30,Number of parallel threads for XGBoost,int
+
+# Random Forest Parameters - Simplified for small dataset
+rf_n_estimators,50,Number of trees,int
+rf_max_depth,5,Maximum tree depth,int
+rf_min_samples_split,5,Minimum samples to split,int
+rf_min_samples_leaf,2,Minimum samples in leaf,int
+rf_max_features,sqrt,Maximum features per split,str
+rf_n_jobs,30,Number of parallel threads for Random Forest,int
+
+# LSTM Parameters - Simplified
+lstm_units,16,LSTM hidden units,int
+lstm_dropout,0.2,Dropout rate,float
+lstm_recurrent_dropout,0.2,Recurrent dropout rate,float
+lstm_epochs,100,Training epochs,int
+lstm_batch_size,32,Training batch size,int
+lstm_sequence_length,2,Input sequence length for annual data,int
+
+# Prophet Parameters
+prophet_yearly_seasonality,False,Disable seasonality for annual data,bool
+prophet_changepoint_prior_scale,0.1,Changepoint flexibility,float
+prophet_seasonality_prior_scale,10.0,Seasonality strength,float
+
+# Multiple Regression Parameters
+regression_degree,1,Polynomial degree for regression features,int
+regression_include_interaction,False,Include interaction terms,bool
+regression_regularization,None,Type of regularization (None/Ridge/Lasso),str
+
+# Ensemble Parameters - Favor simpler models for small dataset
+ensemble_weights_xgb,0.4,XGBoost weight in ensemble,float
+ensemble_weights_rf,0.25,Random Forest weight in ensemble,float
+ensemble_weights_lstm,0.1,LSTM weight in ensemble,float
+ensemble_weights_prophet,0.05,Prophet weight in ensemble,float
+ensemble_weights_regression,0.2,Multiple Regression weight in ensemble,float
+
+# Uncertainty Quantification Parameters - Reduced for faster training
+confidence_intervals,"[0.05,0.95]",Confidence interval levels,list
+bootstrap_samples,500,Bootstrap iterations (reduced for speed),int
+monte_carlo_samples,5000,Monte Carlo simulations (reduced for speed),int
+
+# Performance Thresholds
+target_mape,4.0,Target MAPE percentage,float
+acceptable_mape,8.0,Acceptable MAPE threshold,float
+min_r2_score,0.85,Minimum R² score,float
+max_training_time_hours,2.0,Maximum training time,float
+
+# Parallel Processing Configuration - Threadripper 1950X Optimization
+max_cpu_threads,30,Maximum CPU threads to use (leave 2 for system),int
+parallel_feature_engineering,True,Enable parallel feature engineering,bool
+parallel_cross_validation,True,Enable parallel cross-validation,bool
+
+# Output Configuration
+output_directory,forecasts/,Directory for forecast outputs,str
+save_model_artifacts,True,Save trained models for reuse,bool
+export_feature_importance,True,Export feature importance analysis,bool
+export_model_metrics,True,Export detailed performance metrics,bool

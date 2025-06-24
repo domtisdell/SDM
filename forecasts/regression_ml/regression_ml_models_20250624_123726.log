@@ -1,0 +1,109 @@
+2025-06-24 12:37:26,718 - __main__ - INFO - Regression ML Models - Log file: forecasts/regression_ml/regression_ml_models_20250624_123726.log
+2025-06-24 12:37:26,721 - data.data_loader - INFO - Loaded 54 model parameters
+2025-06-24 12:37:26,723 - data.data_loader - INFO - Loaded 7 data source definitions
+2025-06-24 12:37:26,724 - data.data_loader - INFO - Loaded 12 steel categories
+2025-06-24 12:37:26,725 - data.data_loader - INFO - Loaded 8 regional factors
+2025-06-24 12:37:26,726 - data.data_loader - INFO - Loaded 5 economic indicators
+2025-06-24 12:37:26,727 - data.data_loader - INFO - Loaded 14 validation benchmarks
+2025-06-24 12:37:26,728 - __main__ - INFO - Loading WSA steel and WM macro data...
+2025-06-24 12:37:26,730 - data.data_loader - INFO - Loaded wsa_steel_data: (21, 43)
+2025-06-24 12:37:26,732 - data.data_loader - INFO - Loaded macro_drivers_wm: (48, 11)
+2025-06-24 12:37:26,733 - data.data_loader - INFO - Loaded forecasts_reference: (26, 21)
+2025-06-24 12:37:26,735 - data.data_loader - INFO - Loaded regional_factors: (8, 10)
+2025-06-24 12:37:26,736 - data.data_loader - INFO - Loaded steel_categories: (12, 10)
+2025-06-24 12:37:26,737 - data.data_loader - INFO - Loaded economic_indicators: (5, 9)
+2025-06-24 12:37:26,739 - data.data_loader - INFO - Loaded validation_benchmarks: (14, 6)
+2025-06-24 12:37:26,743 - data.data_loader - INFO - Created consolidated historical dataset: (20, 18)
+2025-06-24 12:37:26,744 - data.data_loader - INFO - Years covered: 2004-2023
+2025-06-24 12:37:26,744 - data.data_loader - INFO - Steel categories included: ['Total Production of Crude Steel', 'Production of Hot Rolled Flat Products', 'Production of Hot Rolled Long Products', 'Apparent Steel Use (crude steel equivalent)', 'Apparent Steel Use (finished steel products)', 'True Steel Use (finished steel equivalent)', 'Production of Railway Track Material', 'Total Production of Tubular Products', 'Production of Wire Rod', 'Production of Hot Rolled Coil, Sheet, and Strip (<3mm)', 'Production of Non-metallic Coated Sheet and Strip', 'Production of Other Metal Coated Sheet and Strip']
+2025-06-24 12:37:26,744 - data.data_loader - INFO - Macro indicators included: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:26,745 - data.data_loader - INFO - Created projection dataset: (27, 6)
+2025-06-24 12:37:26,745 - data.data_loader - INFO - Projection years: 2024-2050
+2025-06-24 12:37:26,745 - data.data_loader - INFO - Macro indicators included: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:26,745 - __main__ - INFO - Historical data shape: (20, 18)
+2025-06-24 12:37:26,745 - __main__ - INFO - Projection data shape: (27, 6)
+2025-06-24 12:37:26,745 - __main__ - INFO - Steel categories: ['Total Production of Crude Steel', 'Production of Hot Rolled Flat Products', 'Production of Hot Rolled Long Products', 'Apparent Steel Use (crude steel equivalent)', 'Apparent Steel Use (finished steel products)', 'True Steel Use (finished steel equivalent)', 'Production of Railway Track Material', 'Total Production of Tubular Products', 'Production of Wire Rod', 'Production of Hot Rolled Coil, Sheet, and Strip (<3mm)', 'Production of Non-metallic Coated Sheet and Strip', 'Production of Other Metal Coated Sheet and Strip']
+2025-06-24 12:37:26,746 - __main__ - INFO - Training all ML algorithms...
+2025-06-24 12:37:26,746 - __main__ - INFO - \nTraining models for Total Production of Crude Steel
+2025-06-24 12:37:26,746 - __main__ - INFO - Using features: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:27,166 - __main__ - INFO - XGBoost MAPE: 0.09%
+2025-06-24 12:37:27,272 - __main__ - INFO - Random Forest MAPE: 2.99%
+2025-06-24 12:37:27,274 - __main__ - INFO - Linear Regression MAPE: 7.82%
+2025-06-24 12:37:27,274 - __main__ - INFO - \nTraining models for Production of Hot Rolled Flat Products
+2025-06-24 12:37:27,274 - __main__ - INFO - Using features: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:27,393 - __main__ - INFO - XGBoost MAPE: 0.17%
+2025-06-24 12:37:27,498 - __main__ - INFO - Random Forest MAPE: 4.46%
+2025-06-24 12:37:27,500 - __main__ - INFO - Linear Regression MAPE: 10.01%
+2025-06-24 12:37:27,500 - __main__ - INFO - \nTraining models for Production of Hot Rolled Long Products
+2025-06-24 12:37:27,500 - __main__ - INFO - Using features: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:27,595 - __main__ - INFO - XGBoost MAPE: 0.17%
+2025-06-24 12:37:27,701 - __main__ - INFO - Random Forest MAPE: 2.77%
+2025-06-24 12:37:27,704 - __main__ - INFO - Linear Regression MAPE: 5.21%
+2025-06-24 12:37:27,704 - __main__ - INFO - \nTraining models for Apparent Steel Use (crude steel equivalent)
+2025-06-24 12:37:27,704 - __main__ - INFO - Using features: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:27,887 - __main__ - INFO - XGBoost MAPE: 0.39%
+2025-06-24 12:37:27,995 - __main__ - INFO - Random Forest MAPE: 2.62%
+2025-06-24 12:37:27,997 - __main__ - INFO - Linear Regression MAPE: 5.29%
+2025-06-24 12:37:27,997 - __main__ - INFO - \nTraining models for Apparent Steel Use (finished steel products)
+2025-06-24 12:37:27,997 - __main__ - INFO - Using features: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:28,091 - __main__ - INFO - XGBoost MAPE: 0.43%
+2025-06-24 12:37:28,200 - __main__ - INFO - Random Forest MAPE: 2.62%
+2025-06-24 12:37:28,202 - __main__ - INFO - Linear Regression MAPE: 5.05%
+2025-06-24 12:37:28,203 - __main__ - INFO - \nTraining models for True Steel Use (finished steel equivalent)
+2025-06-24 12:37:28,203 - __main__ - INFO - Using features: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:28,303 - __main__ - INFO - XGBoost MAPE: 0.19%
+2025-06-24 12:37:28,407 - __main__ - INFO - Random Forest MAPE: 2.44%
+2025-06-24 12:37:28,409 - __main__ - INFO - Linear Regression MAPE: 4.85%
+2025-06-24 12:37:28,409 - __main__ - INFO - \nTraining models for Production of Railway Track Material
+2025-06-24 12:37:28,409 - __main__ - INFO - Using features: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:28,575 - __main__ - INFO - XGBoost MAPE: 0.81%
+2025-06-24 12:37:28,679 - __main__ - INFO - Random Forest MAPE: 11.40%
+2025-06-24 12:37:28,681 - __main__ - INFO - Linear Regression MAPE: 21.57%
+2025-06-24 12:37:28,681 - __main__ - INFO - \nTraining models for Total Production of Tubular Products
+2025-06-24 12:37:28,681 - __main__ - INFO - Using features: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:28,950 - __main__ - INFO - XGBoost MAPE: 0.09%
+2025-06-24 12:37:29,052 - __main__ - INFO - Random Forest MAPE: 3.93%
+2025-06-24 12:37:29,054 - __main__ - INFO - Linear Regression MAPE: 12.67%
+2025-06-24 12:37:29,054 - __main__ - INFO - \nTraining models for Production of Wire Rod
+2025-06-24 12:37:29,054 - __main__ - INFO - Using features: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:29,144 - __main__ - INFO - XGBoost MAPE: 0.29%
+2025-06-24 12:37:29,249 - __main__ - INFO - Random Forest MAPE: 3.69%
+2025-06-24 12:37:29,251 - __main__ - INFO - Linear Regression MAPE: 7.47%
+2025-06-24 12:37:29,251 - __main__ - INFO - \nTraining models for Production of Hot Rolled Coil, Sheet, and Strip (<3mm)
+2025-06-24 12:37:29,251 - __main__ - INFO - Using features: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:29,356 - __main__ - INFO - XGBoost MAPE: 0.10%
+2025-06-24 12:37:29,460 - __main__ - INFO - Random Forest MAPE: 5.07%
+2025-06-24 12:37:29,462 - __main__ - INFO - Linear Regression MAPE: 11.13%
+2025-06-24 12:37:29,462 - __main__ - INFO - \nTraining models for Production of Non-metallic Coated Sheet and Strip
+2025-06-24 12:37:29,462 - __main__ - INFO - Using features: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:29,615 - __main__ - INFO - XGBoost MAPE: 0.36%
+2025-06-24 12:37:29,718 - __main__ - INFO - Random Forest MAPE: 16.92%
+2025-06-24 12:37:29,720 - __main__ - INFO - Linear Regression MAPE: 42.97%
+2025-06-24 12:37:29,720 - __main__ - INFO - \nTraining models for Production of Other Metal Coated Sheet and Strip
+2025-06-24 12:37:29,720 - __main__ - INFO - Using features: ['Population', 'Urbanisation', 'GDP_AUD_Real2015', 'Iron_Ore_Production', 'Coal_Production']
+2025-06-24 12:37:29,837 - __main__ - INFO - XGBoost MAPE: 0.38%
+2025-06-24 12:37:29,943 - __main__ - INFO - Random Forest MAPE: 5.75%
+2025-06-24 12:37:29,945 - __main__ - INFO - Linear Regression MAPE: 13.96%
+2025-06-24 12:37:29,945 - __main__ - INFO - Generating forecasts for 2024-2050...
+2025-06-24 12:37:30,174 - __main__ - INFO - Forecasts saved to forecasts/regression_ml/ML_Algorithm_Forecasts_2025-2050.csv
+2025-06-24 12:37:30,174 - __main__ - INFO - Creating ensemble forecast...
+2025-06-24 12:37:30,174 - __main__ - INFO - Created ensemble for Total Production of Crude Steel using 2 algorithms
+2025-06-24 12:37:30,175 - __main__ - INFO - Created ensemble for Production of Hot Rolled Flat Products using 2 algorithms
+2025-06-24 12:37:30,175 - __main__ - INFO - Created ensemble for Production of Hot Rolled Long Products using 2 algorithms
+2025-06-24 12:37:30,175 - __main__ - INFO - Created ensemble for Apparent Steel Use (crude steel equivalent) using 2 algorithms
+2025-06-24 12:37:30,175 - __main__ - INFO - Created ensemble for Apparent Steel Use (finished steel products) using 2 algorithms
+2025-06-24 12:37:30,176 - __main__ - INFO - Created ensemble for True Steel Use (finished steel equivalent) using 2 algorithms
+2025-06-24 12:37:30,176 - __main__ - INFO - Created ensemble for Production of Railway Track Material using 2 algorithms
+2025-06-24 12:37:30,176 - __main__ - INFO - Created ensemble for Total Production of Tubular Products using 2 algorithms
+2025-06-24 12:37:30,176 - __main__ - INFO - Created ensemble for Production of Wire Rod using 2 algorithms
+2025-06-24 12:37:30,177 - __main__ - INFO - Created ensemble for Production of Hot Rolled Coil, Sheet, and Strip (<3mm) using 2 algorithms
+2025-06-24 12:37:30,177 - __main__ - INFO - Created ensemble for Production of Non-metallic Coated Sheet and Strip using 2 algorithms
+2025-06-24 12:37:30,177 - __main__ - INFO - Created ensemble for Production of Other Metal Coated Sheet and Strip using 2 algorithms
+2025-06-24 12:37:30,182 - __main__ - INFO - Ensemble forecasts saved to forecasts/regression_ml/Ensemble_Forecasts_2025-2050.csv
+2025-06-24 12:37:30,183 - __main__ - INFO - Ensemble Forecast - 2025: 40,526 tonnes
+2025-06-24 12:37:30,183 - __main__ - INFO - Ensemble Forecast - 2050: 40,395 tonnes
+2025-06-24 12:37:30,183 - __main__ - INFO - Ensemble Average Annual Growth Rate: -0.01%
+2025-06-24 12:37:30,183 - __main__ - INFO - Creating visualizations...
+2025-06-24 12:37:39,816 - __main__ - INFO - Visualizations saved to forecasts/regression_ml/visualizations
+2025-06-24 12:37:39,817 - __main__ - INFO - Saving results and performance comparison...
+2025-06-24 12:37:40,260 - __main__ - INFO - All results saved to forecasts/regression_ml

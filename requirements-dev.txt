@@ -1,0 +1,40 @@
+# Development and Optional Dependencies
+# Install with: pip install -r requirements-dev.txt
+
+# Include base requirements
+-r requirements.txt
+
+# =============================================================================
+# ADDITIONAL DEVELOPMENT TOOLS
+# =============================================================================
+
+# Documentation
+sphinx>=7.1.0
+sphinx-rtd-theme>=1.3.0
+
+# Enhanced Development
+python-dotenv>=1.1.0
+colorama>=0.4.6
+
+# Jupyter & Notebooks (optional)
+# jupyter>=1.0.0
+# notebook>=6.5.0
+# ipykernel>=6.0.0
+
+# MLflow (optional - large dependency)
+# mlflow>=2.5.0
+
+# PyTorch (optional - very large dependency)
+# torch>=2.0.0
+# torchvision>=0.15.0
+
+# Additional ML Libraries (optional)
+# great-expectations>=1.5.0  # Has pandas conflicts
+# sktime>=0.37.0  # Has pandas conflicts
+
+# =============================================================================
+# NOTES
+# =============================================================================
+# - Uncomment lines above as needed for specific development tasks
+# - Some packages have version conflicts and are commented out
+# - PyTorch is excluded due to large download size
