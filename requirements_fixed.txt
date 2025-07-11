@@ -1,0 +1,113 @@
+# Australian Steel Demand Model - Fixed Production Requirements
+# Complete ML stack with tested compatible versions
+# This is the RECOMMENDED requirements file for production use
+
+# =============================================================================
+# CRITICAL VERSION CONSTRAINTS
+# =============================================================================
+# numpy: <2.3 for SHAP compatibility, >=1.26.0 for TensorFlow
+# pandas: 2.3.0 (some packages require <2.3.0 but feature_engine needs >=2.2.0)
+# scipy: 1.16.0 (compatibility with statsmodels)
+# tensorflow: 2.19.0 with full CUDA dependencies
+
+# =============================================================================
+# CORE DATA SCIENCE & ML LIBRARIES
+# =============================================================================
+pandas==2.3.0
+numpy==1.26.4
+scipy==1.16.0
+scikit-learn==1.6.1
+joblib==1.4.2
+
+# =============================================================================
+# MACHINE LEARNING FRAMEWORKS
+# =============================================================================
+xgboost==3.0.2
+lightgbm==4.6.0
+
+# =============================================================================
+# DEEP LEARNING & NEURAL NETWORKS - REMOVED FROM SYSTEM
+# =============================================================================
+# tensorflow==2.19.0
+# keras==3.10.0
+
+# TensorFlow Core Dependencies - REMOVED
+# grpcio==1.73.0
+# tensorboard==2.19.0
+# absl-py==2.3.0
+# astunparse==1.6.3
+# flatbuffers==25.2.10
+# gast==0.6.0
+# google-pasta==0.2.0
+# h5py==3.14.0
+# libclang==18.1.1
+# ml_dtypes==0.5.1
+# opt_einsum==3.4.0
+# protobuf==5.29.5
+# termcolor==3.1.0
+# wrapt==1.17.2
+# tensorboard-data-server==0.7.2
+
+# =============================================================================
+# TIME SERIES FORECASTING
+# =============================================================================
+statsmodels==0.14.4
+
+# Prophet removed from system
+# cmdstanpy==1.2.5
+# stanio==0.5.1
+# holidays==0.75
+
+# =============================================================================
+# FEATURE ENGINEERING & PREPROCESSING
+# =============================================================================
+feature_engine==1.8.3
+category_encoders==2.8.1
+
+# =============================================================================
+# MODEL INTERPRETATION & EXPLAINABILITY
+# =============================================================================
+shap==0.48.0
+
+# =============================================================================
+# DATA VISUALIZATION
+# =============================================================================
+matplotlib==3.10.3
+seaborn==0.13.2
+
+# =============================================================================
+# DEVELOPMENT & TESTING
+# =============================================================================
+pytest==8.4.1
+black==25.1.0
+isort==6.0.1
+flake8==7.3.0
+
+# =============================================================================
+# COMMON UTILITIES & DEPENDENCIES
+# =============================================================================
+tqdm==4.67.1
+click==8.2.1
+python_dateutil==2.9.0.post0
+pytz==2025.2
+typing_extensions==4.14.0
+packaging==25.0
+PyYAML==6.0.2
+requests==2.32.4
+
+# =============================================================================
+# SYSTEM DEPENDENCIES
+# =============================================================================
+setuptools==80.9.0
+wheel==0.45.1
+six==1.17.0
+certifi==2025.6.15
+
+# =============================================================================
+# NOTES
+# =============================================================================
+# - All versions are pinned and tested for compatibility
+# - Optimized for the dual-track forecasting system
+# - Includes renewable energy time series support
+# - Compatible with hierarchical modeling framework
+# - Excludes optional heavy dependencies (PyTorch, MLflow)
