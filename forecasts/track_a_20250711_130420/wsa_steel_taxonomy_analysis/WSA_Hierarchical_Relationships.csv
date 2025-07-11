@@ -1,8 +1,0 @@
-WSA_Hierarchy_Level,WSA_Level_Name,Parent_Levels,Child_Levels,Flow_Description,Track_A_Coverage,Total_Categories_Mapped
-0,Raw Materials,None,1,Iron ore input,Yes,1
-1,Primary Processing,0,2,Pig iron production,Yes,1
-2,Crude Steel Production,1,3; Tubular,Steel making,Yes,1
-3,Semi-finished Products,2,4,Casting/forming,Yes,2
-4,Hot Rolled Products,3,5,Primary rolling,Yes,2
-5,Specialized Products,4,None,Value-added processing,Yes,5
-Tubular,Tubular Products,2,None,Pipe/tube manufacturing,No,0

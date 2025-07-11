@@ -98,3 +98,7 @@ coverage.xml
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
+# Output directories (exclude from repo, keep locally)
+outputs/
+forecasts/
