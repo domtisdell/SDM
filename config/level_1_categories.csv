@@ -1,0 +1,5 @@
+level_1_code,level_1_name,description,client_relevance,market_coverage
+SEMI_FINISHED,Semi-Finished Steel Products,Billets and slabs for further processing,high,complete
+FINISHED_FLAT,Finished Flat Products,Hot-rolled and cold-rolled flat steel products,medium,partial
+FINISHED_LONG,Finished Long Products,Structural steel and long products,high,complete
+TUBE_PIPE,Tube and Pipe Products,Welded and seamless tubular products,low,partial

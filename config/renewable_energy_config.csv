@@ -1,0 +1,7 @@
+technology,steel_intensity_tonnes_per_mw,grid_infrastructure_tonnes_per_mw,lifecycle_years,replacement_factor,description
+wind_onshore,75,15,25,0.8,Research-validated 50-100 t/MW range (midpoint) per multiple international sources
+wind_offshore,175,25,25,0.75,Research-validated 150-200 t/MW range reflecting marine foundation requirements
+solar_grid,40,10,25,0.9,Research-validated 35-45 t/MW mounting systems per empirical analysis
+solar_distributed,40,0,25,0.95,Distributed solar per residential/commercial applications research
+grid_backbone,0,50,40,0.7,Transmission backbone per MW of renewable capacity
+energy_storage,30,5,15,1.0,Battery storage systems per MW capacity

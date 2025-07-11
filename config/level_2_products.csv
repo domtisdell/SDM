@@ -1,0 +1,23 @@
+level_1_code,level_2_code,level_2_name,share_of_level_1,client_product,description
+SEMI_FINISHED,BILLETS_COMMERCIAL,Commercial Low and Medium Carbon Billets,0.55,yes,Standard construction and manufacturing billets
+SEMI_FINISHED,BILLETS_SBQ,Special Bar Quality Billets,0.25,yes,High-strength automotive and mining equipment billets
+SEMI_FINISHED,SLABS_STANDARD,Standard Slabs,0.15,yes,General flat product production slabs
+SEMI_FINISHED,BILLETS_DEGASSED,Degassed Commercial Billets,0.03,yes,Premium quality commercial billets
+SEMI_FINISHED,SLABS_DEGASSED,Degassed Slabs,0.02,yes,Premium automotive and appliance slabs
+FINISHED_FLAT,HOT_ROLLED_COIL,Hot Rolled Coil,0.40,no,General hot-rolled flat products
+FINISHED_FLAT,COLD_ROLLED_COIL,Cold Rolled Coil,0.25,no,Automotive and appliance cold-rolled products
+FINISHED_FLAT,PLATE,Steel Plate,0.20,no,Heavy construction and marine plate
+FINISHED_FLAT,GALVANIZED,Galvanized Products,0.15,no,Coated steel products
+FINISHED_LONG,STRUCTURAL_BEAMS,Universal Beams,0.25,yes,Primary load-bearing structural elements
+FINISHED_LONG,STRUCTURAL_COLUMNS,Universal Columns,0.15,yes,Vertical support structures
+FINISHED_LONG,STRUCTURAL_CHANNELS,Parallel Flange Channels,0.12,yes,Secondary structural elements
+FINISHED_LONG,STRUCTURAL_ANGLES,Angles,0.08,yes,General construction and fabrication
+FINISHED_LONG,RAILS_STANDARD,Plain Carbon Rails,0.06,yes,Standard railway track applications
+FINISHED_LONG,RAILS_HEAD_HARDENED,Head Hardened Rails,0.02,yes,Heavy-duty rail applications
+FINISHED_LONG,SLEEPER_BAR,Sleeper Bar,0.01,yes,Rail fastening systems
+FINISHED_LONG,REBAR,Reinforcing Bar,0.25,no,Concrete reinforcement
+FINISHED_LONG,WIRE_ROD,Wire Rod,0.06,no,Wire and cable applications
+TUBE_PIPE,WELDED_STRUCTURAL,Welded Structural Hollow Sections,0.30,no,Structural applications
+TUBE_PIPE,SEAMLESS_LINE_PIPE,Seamless Line Pipe,0.25,no,Oil and gas pipelines
+TUBE_PIPE,WELDED_LINE_PIPE,Welded Line Pipe,0.20,no,Water and utility pipelines
+TUBE_PIPE,OTHER_TUBE_PIPE,Other Tube and Pipe,0.25,no,Various industrial applications
