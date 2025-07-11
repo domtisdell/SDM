@@ -1,6 +1,6 @@
 """
 Steel Demand ML Model - Ensemble Models Module
-Implements XGBoost, Random Forest, LSTM, and Prophet models.
+Implements XGBoost, Random Forest, and Multiple Regression models.
 All parameters loaded from CSV configuration files.
 """
 
@@ -18,16 +18,11 @@ from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
-import tensorflow as tf
-from tensorflow import keras
-from tensorflow.keras import layers
-from prophet import Prophet
+# TensorFlow/LSTM removed from system
+# Prophet removed from system
 
 # Suppress warnings
 warnings.filterwarnings('ignore')
-tf.get_logger().setLevel('ERROR')
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 class BaseSteelDemandModel(ABC):
     """Base class for all steel demand forecasting models."""
@@ -120,6 +115,7 @@ class XGBoostSteelModel(BaseSteelDemandModel):
             'colsample_bytree': float(self.data_loader.get_model_config('xgb_colsample_bytree')),
             'reg_alpha': float(self.data_loader.get_model_config('xgb_reg_alpha')),
             'reg_lambda': float(self.data_loader.get_model_config('xgb_reg_lambda')),
+            'min_child_weight': int(self.data_loader.get_model_config('xgb_min_child_weight')),
             'random_state': int(self.data_loader.get_model_config('random_state')),
             'early_stopping_rounds': int(self.data_loader.get_model_config('early_stopping_rounds'))
         }
@@ -145,8 +141,29 @@ class XGBoostSteelModel(BaseSteelDemandModel):
             model_params = {k: v for k, v in self.config.items() if k != 'early_stopping_rounds'}
             self.model = xgb.XGBRegressor(**model_params)
             
-            # For XGBoost 3.0+, use simple fit without early stopping to avoid compatibility issues
-            self.model.fit(X, y, verbose=False)
+            # Implement train/validation split for early stopping with small dataset
+            if len(X) > 10:  # Only if we have enough data
+                from sklearn.model_selection import train_test_split
+                X_train, X_val, y_train, y_val = train_test_split(
+                    X, y, test_size=0.2, random_state=42, shuffle=True
+                )
+                
+                # Fit with early stopping
+                try:
+                    self.model.fit(
+                        X_train, y_train,
+                        eval_set=[(X_val, y_val)],
+                        early_stopping_rounds=self.config['early_stopping_rounds'],
+                        verbose=False
+                    )
+                    self.logger.info(f"XGBoost stopped at {self.model.best_iteration} iterations")
+                except Exception as e:
+                    # Fallback to simple fit if early stopping fails
+                    self.logger.warning(f"Early stopping failed, using simple fit: {str(e)}")
+                    self.model.fit(X, y, verbose=False)
+            else:
+                # For very small datasets, use simple fit
+                self.model.fit(X, y, verbose=False)
             
             # Store feature importance and feature names
             self.feature_importance_ = pd.DataFrame({
@@ -249,299 +266,9 @@ class RandomForestSteelModel(BaseSteelDemandModel):
         
         return self.feature_importance_.copy()
 
-class LSTMSteelModel(BaseSteelDemandModel):
-    """LSTM neural network model for steel demand forecasting."""
-    
-    def __init__(self, data_loader):
-        super().__init__(data_loader, "LSTM")
-        self._load_config()
-        # Set random seed for reproducibility
-        tf.random.set_seed(self.config['random_state'])
-    
-    def _load_config(self):
-        """Load LSTM configuration from CSV."""
-        self.config = {
-            'lstm_units': int(self.data_loader.get_model_config('lstm_units')),
-            'dropout': float(self.data_loader.get_model_config('lstm_dropout')),
-            'recurrent_dropout': float(self.data_loader.get_model_config('lstm_recurrent_dropout')),
-            'epochs': int(self.data_loader.get_model_config('lstm_epochs')),
-            'batch_size': int(self.data_loader.get_model_config('lstm_batch_size')),
-            'sequence_length': int(self.data_loader.get_model_config('lstm_sequence_length')),
-            'random_state': int(self.data_loader.get_model_config('random_state'))
-        }
-    
-    def _create_sequences(self, X: pd.DataFrame, y: pd.Series) -> Tuple[np.ndarray, np.ndarray]:
-        """Create sequences for LSTM training."""
-        sequence_length = self.config['sequence_length']
-        
-        X_sequences = []
-        y_sequences = []
-        
-        for i in range(sequence_length, len(X)):
-            X_sequences.append(X.iloc[i-sequence_length:i].values)
-            y_sequences.append(y.iloc[i])
-        
-        return np.array(X_sequences), np.array(y_sequences)
-    
-    def fit(self, X: pd.DataFrame, y: pd.Series, X_val: Optional[pd.DataFrame] = None, 
-            y_val: Optional[pd.Series] = None) -> 'LSTMSteelModel':
-        """
-        Fit LSTM model to training data.
-        
-        Args:
-            X: Training feature matrix
-            y: Training target values
-            X_val: Validation feature matrix (optional)
-            y_val: Validation target values (optional)
-            
-        Returns:
-            Fitted model instance
-        """
-        try:
-            self.logger.info("Training LSTM model")
-            
-            # Create sequences
-            X_seq, y_seq = self._create_sequences(X, y)
-            
-            if len(X_seq) == 0:
-                # Use a simpler approach for small datasets
-                self.logger.info("Using simplified LSTM approach for small dataset")
-                # Reduce sequence length for small datasets
-                min_sequence_length = min(3, len(X) - 1)
-                if min_sequence_length > 0:
-                    X_sequences = []
-                    y_sequences = []
-                    for i in range(min_sequence_length, len(X)):
-                        X_sequences.append(X.iloc[i-min_sequence_length:i].values)
-                        y_sequences.append(y.iloc[i])
-                    X_seq, y_seq = np.array(X_sequences), np.array(y_sequences)
-                else:
-                    raise ValueError("Insufficient data for sequence creation")
-            
-            # Prepare validation data if provided
-            validation_data = None
-            if X_val is not None and y_val is not None:
-                X_val_seq, y_val_seq = self._create_sequences(X_val, y_val)
-                if len(X_val_seq) > 0:
-                    validation_data = (X_val_seq, y_val_seq)
-            
-            # Build ultra-simplified LSTM model for small dataset
-            # Use minimal architecture to avoid overfitting
-            lstm_units = min(8, self.config['lstm_units'])  # Cap LSTM units for small data
-            
-            self.model = keras.Sequential([
-                layers.LSTM(
-                    lstm_units,
-                    input_shape=(X_seq.shape[1], X_seq.shape[2]),
-                    dropout=0.0,  # No dropout for tiny dataset
-                    recurrent_dropout=0.0,
-                    return_sequences=False,
-                    kernel_regularizer=tf.keras.regularizers.l2(0.001)  # Minimal regularization
-                ),
-                layers.Dense(1, activation='linear')  # Direct linear output
-            ])
-            
-            # Compile model with optimized settings for small data
-            optimizer = keras.optimizers.Adam(learning_rate=0.01, clipnorm=1.0)  # Higher LR, gradient clipping
-            self.model.compile(
-                optimizer=optimizer,
-                loss='huber',  # More robust loss for outliers
-                metrics=['mae']
-            )
-            
-            # Minimal callbacks for small dataset
-            callbacks = [
-                keras.callbacks.EarlyStopping(
-                    monitor='loss',  # Monitor training loss only for stability
-                    patience=10,  # Reduced patience
-                    restore_best_weights=True,
-                    min_delta=1e-6
-                )
-            ]
-            
-            # Train model with very few epochs to prevent overfitting
-            max_epochs = min(50, self.config['epochs'])  # Cap epochs for small data
-            batch_size = min(len(X_seq), self.config['batch_size'])  # Ensure batch size doesn't exceed data
-            
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                history = self.model.fit(
-                    X_seq, y_seq,
-                    epochs=max_epochs,
-                    batch_size=batch_size,
-                    validation_data=None,  # Skip validation for stability with tiny dataset
-                    callbacks=callbacks,
-                    verbose=0
-                )
-            
-            self.training_history = history.history
-            self.is_fitted = True
-            self.logger.info("LSTM model training completed")
-            
-            return self
-            
-        except Exception as e:
-            self.logger.error(f"Error training LSTM model: {str(e)}")
-            raise
-    
-    def predict(self, X: pd.DataFrame) -> np.ndarray:
-        """Make predictions using LSTM model."""
-        if not self.is_fitted:
-            raise ValueError("Model must be fitted before making predictions")
-        
-        sequence_length = self.config['sequence_length']
-        
-        # Handle insufficient data for LSTM prediction
-        min_seq_len = min(sequence_length, len(X))
-        if len(X) < sequence_length:
-            # Pad with last available values if insufficient data
-            padding_needed = sequence_length - len(X)
-            if len(X) > 0:
-                last_row = X.iloc[-1:]
-                padding = pd.concat([last_row] * padding_needed, ignore_index=True)
-                X_padded = pd.concat([padding, X], ignore_index=True)
-                X_seq = X_padded.iloc[-sequence_length:].values.reshape(1, sequence_length, -1)
-            else:
-                # Handle empty data case
-                X_seq = np.zeros((1, sequence_length, X.shape[1]))
-        else:
-            X_seq = X.iloc[-sequence_length:].values.reshape(1, sequence_length, -1)
-        
-        try:
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                predictions = self.model.predict(X_seq, verbose=0)
-            
-            pred_flat = predictions.flatten()
-            
-            # Safety check for extreme predictions
-            pred_flat = np.clip(pred_flat, -1e6, 1e6)  # Clip extreme values
-            
-            # Ensure we return the correct number of predictions
-            if len(pred_flat) == 1 and len(X) > 1:
-                # Repeat single prediction for all input samples
-                return np.repeat(pred_flat[0], len(X))
-            elif len(pred_flat) == len(X):
-                return pred_flat
-            else:
-                # Fallback: return last prediction repeated
-                return np.repeat(pred_flat[-1] if len(pred_flat) > 0 else 0, len(X))
-        
-        except Exception as e:
-            # If LSTM prediction fails, return simple fallback
-            self.logger.warning(f"LSTM prediction failed: {str(e)}, using fallback")
-            return np.zeros(len(X))
+# LSTM model class removed from system
 
-class ProphetSteelModel(BaseSteelDemandModel):
-    """Prophet model for steel demand forecasting."""
-    
-    def __init__(self, data_loader):
-        super().__init__(data_loader, "Prophet")
-        self._load_config()
-    
-    def _load_config(self):
-        """Load Prophet configuration from CSV."""
-        self.config = {
-            'yearly_seasonality': self.data_loader.get_model_config('prophet_yearly_seasonality'),
-            'changepoint_prior_scale': float(self.data_loader.get_model_config('prophet_changepoint_prior_scale')),
-            'seasonality_prior_scale': float(self.data_loader.get_model_config('prophet_seasonality_prior_scale'))
-        }
-    
-    def fit(self, X: pd.DataFrame, y: pd.Series, **kwargs) -> 'ProphetSteelModel':
-        """
-        Fit Prophet model to training data.
-        
-        Args:
-            X: Training feature matrix (must include 'Year' column)
-            y: Training target values
-            
-        Returns:
-            Fitted model instance
-        """
-        try:
-            self.logger.info("Training Prophet model")
-            
-            # Prepare data for Prophet
-            # Ensure Year column is available for Prophet
-            if 'Year' not in X.columns:
-                # Add Year column if not present
-                if hasattr(self.data_loader, 'historical_data') and 'Year' in self.data_loader.historical_data.columns:
-                    # Match index with historical data to get years
-                    years = self.data_loader.historical_data.loc[X.index, 'Year'] if len(X.index.intersection(self.data_loader.historical_data.index)) > 0 else range(2007, 2007 + len(X))
-                    X = X.copy()
-                    X['Year'] = years
-                else:
-                    # Generate sequential years starting from 2007
-                    X = X.copy() 
-                    X['Year'] = range(2007, 2007 + len(X))
-            
-            # Create Prophet DataFrame
-            prophet_df = pd.DataFrame({
-                'ds': pd.to_datetime(X['Year'], format='%Y'),
-                'y': y.values
-            })
-            
-            # Initialize Prophet model
-            self.model = Prophet(
-                yearly_seasonality=self.config['yearly_seasonality'],
-                weekly_seasonality=False,
-                daily_seasonality=False,
-                changepoint_prior_scale=self.config['changepoint_prior_scale'],
-                seasonality_prior_scale=self.config['seasonality_prior_scale']
-            )
-            
-            # Add economic regressors
-            economic_columns = [col for col in X.columns if col != 'Year']
-            for col in economic_columns[:5]:  # Limit to top 5 features for Prophet
-                self.model.add_regressor(col)
-            
-            # Prepare training data with regressors
-            for col in economic_columns[:5]:
-                prophet_df[col] = X[col].values
-            
-            # Fit model
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                self.model.fit(prophet_df)
-            
-            self.regressor_columns = economic_columns[:5]
-            self.is_fitted = True
-            self.logger.info("Prophet model training completed")
-            
-            return self
-            
-        except Exception as e:
-            self.logger.error(f"Error training Prophet model: {str(e)}")
-            raise
-    
-    def predict(self, X: pd.DataFrame) -> np.ndarray:
-        """Make predictions using Prophet model."""
-        if not self.is_fitted:
-            raise ValueError("Model must be fitted before making predictions")
-        
-        # Prepare future DataFrame - handle missing Year column
-        if 'Year' not in X.columns:
-            X = X.copy()
-            X['Year'] = range(2007, 2007 + len(X))
-            
-        future_df = pd.DataFrame({
-            'ds': pd.to_datetime(X['Year'], format='%Y')
-        })
-        
-        # Add regressors
-        for col in self.regressor_columns:
-            if col in X.columns:
-                future_df[col] = X[col].values
-            else:
-                # Use median value if regressor not available
-                future_df[col] = 0
-        
-        # Make predictions
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            forecast = self.model.predict(future_df)
-        
-        return forecast['yhat'].values
+# Prophet model class removed from system
 
 class MultipleRegressionSteelModel(BaseSteelDemandModel):
     """Multiple regression model for steel demand forecasting based on macro economic drivers."""
@@ -706,7 +433,7 @@ class MultipleRegressionSteelModel(BaseSteelDemandModel):
         return summary
 
 class EnsembleSteelModel:
-    """Ensemble model combining XGBoost, Random Forest, LSTM, Prophet, and Multiple Regression."""
+    """Ensemble model combining XGBoost, Random Forest, and Multiple Regression."""
     
     def __init__(self, data_loader):
         """
@@ -722,10 +449,7 @@ class EnsembleSteelModel:
         # Initialize individual models
         self.models = {
             'xgboost': XGBoostSteelModel(data_loader),
-            'random_forest': RandomForestSteelModel(data_loader),
-            'lstm': LSTMSteelModel(data_loader),
-            'prophet': ProphetSteelModel(data_loader),
-            'regression': MultipleRegressionSteelModel(data_loader)
+            'random_forest': RandomForestSteelModel(data_loader)
         }
         
         self.is_fitted = False
@@ -744,10 +468,7 @@ class EnsembleSteelModel:
         """Load ensemble configuration from CSV."""
         self.weights = {
             'xgboost': float(self.data_loader.get_model_config('ensemble_weights_xgb')),
-            'random_forest': float(self.data_loader.get_model_config('ensemble_weights_rf')),
-            'lstm': float(self.data_loader.get_model_config('ensemble_weights_lstm')),
-            'prophet': float(self.data_loader.get_model_config('ensemble_weights_prophet')),
-            'regression': float(self.data_loader.get_model_config('ensemble_weights_regression'))
+            'random_forest': float(self.data_loader.get_model_config('ensemble_weights_rf'))
         }
         
         # Normalize weights to sum to 1
@@ -781,7 +502,7 @@ class EnsembleSteelModel:
                 try:
                     self.logger.info(f"Training {model_name}")
                     
-                    if model_name in ['xgboost', 'lstm'] and X_val is not None:
+                    if model_name in ['xgboost'] and X_val is not None:
                         model.fit(X, y, X_val, y_val)
                     else:
                         model.fit(X, y)
@@ -887,7 +608,7 @@ class EnsembleSteelModel:
                     else:
                         pred = model.predict(X)
                 else:
-                    # For LSTM, Prophet, and Regression models, use their built-in feature handling
+                    # For Regression models, use their built-in feature handling
                     pred = model.predict(X)
                 
                 predictions[model_name] = pred

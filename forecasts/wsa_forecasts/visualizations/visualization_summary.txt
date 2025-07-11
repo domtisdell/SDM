@@ -1,0 +1,12 @@
+Steel Demand Model - Visualization Summary
+==================================================
+
+Generated on: 2025-07-10 18:56:26
+Output directory: forecasts/wsa_forecasts/visualizations
+
+Generated visualizations:
+  • dashboard: algorithm_accuracy_dashboard.png
+  • heatmaps: algorithm_performance_comparison.png
+  • feature_importance: 
+  • forecast_comparison: historical_ensemble_vs_algorithms.png
+  • summary_report: model_summary_report.png

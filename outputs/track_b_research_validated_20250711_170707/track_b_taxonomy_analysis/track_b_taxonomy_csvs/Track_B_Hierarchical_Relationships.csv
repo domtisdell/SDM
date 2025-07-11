@@ -1,0 +1,5 @@
+Level_ID,Level_Name,Description,Hierarchy_Level,Parent,Color,Product_Count
+Level_0_Total_Consumption,Total Steel Consumption,Total apparent steel use (crude steel equivalent),0,,#2E4057,1
+Level_1_Major_Categories,Major Product Categories,Primary steel product categories for consumption,1,Level_0_Total_Consumption,#048A81,4
+Level_2_Product_Families,Product Families,Detailed product families and specifications,2,Level_1_Major_Categories,#54C6EB,22
+Level_3_Client_Specifications,Client Product Specifications,Specific grade and application specifications for end clients,3,Level_2_Product_Families,#F3A712,25

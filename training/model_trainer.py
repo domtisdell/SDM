@@ -222,20 +222,18 @@ class SteelDemandModelTrainer:
             # Initialize ensemble model
             ensemble_model = EnsembleSteelModel(self.data_loader)
             
-            # Remove Year column for training (keep for Prophet)
+            # Remove Year column for training
             feature_cols = [col for col in X_train.columns if col != 'Year']
-            prophet_cols = ['Year'] + feature_cols[:5]  # Prophet needs Year + limited features
+            
+            # Prophet removed from system - no longer needed
             
             # Prepare different feature sets for different models
             X_train_features = X_train[feature_cols]
-            X_train_prophet = X_train[prophet_cols]
             
             if X_val is not None:
                 X_val_features = X_val[feature_cols]
-                X_val_prophet = X_val[prophet_cols]
             else:
                 X_val_features = None
-                X_val_prophet = None
             
             # Train ensemble with appropriate feature sets
             # Note: This is a simplified approach - in practice, you might want to

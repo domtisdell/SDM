@@ -7,8 +7,6 @@ from .ensemble_models import (
     EnsembleSteelModel,
     XGBoostSteelModel, 
     RandomForestSteelModel,
-    LSTMSteelModel,
-    ProphetSteelModel,
     MultipleRegressionSteelModel
 )
 
@@ -16,7 +14,5 @@ __all__ = [
     'EnsembleSteelModel',
     'XGBoostSteelModel',
     'RandomForestSteelModel', 
-    'LSTMSteelModel',
-    'ProphetSteelModel',
     'MultipleRegressionSteelModel'
 ]

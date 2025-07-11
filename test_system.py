@@ -63,8 +63,8 @@ def test_feature_engineering():
         # Get historical data
         historical = loader.get_historical_data()
         
-        # Test feature creation for one category
-        target_column = 'Hot_Rolled_Structural_Steel_tonnes'
+        # Test feature creation for one category - use actual column name
+        target_column = 'Production of Hot Rolled Flat Products'
         features_df = feature_engineer.create_features(historical, target_column)
         
         print(f"Original features: {historical.shape[1]}")
@@ -97,16 +97,17 @@ def test_model_components():
         # Get small sample of data for testing
         historical = loader.get_historical_data()
         
-        # Create simple features for testing
-        feature_cols = ['GDP_Real_AUD_Billion', 'Total_Population_Millions', 'Iron_Ore_Production_Mt']
+        # Create simple features for testing - use actual column names
+        feature_cols = ['GDP_AUD_Real2015', 'Population', 'Iron_Ore_Production']
         available_features = [col for col in feature_cols if col in historical.columns]
         
         if not available_features:
-            print("No suitable features found for model testing")
+            print(f"No suitable features found. Available columns: {list(historical.columns)}")
             return False
         
-        X = historical[available_features].fillna(method='ffill').fillna(0)
-        y = historical['Hot_Rolled_Structural_Steel_tonnes'].fillna(method='ffill')
+        X = historical[available_features].ffill().fillna(0)
+        # Use actual steel column name
+        y = historical['Production of Hot Rolled Flat Products'].ffill()
         
         # Remove rows with missing target
         valid_indices = y.notna()
@@ -130,6 +131,8 @@ def test_model_components():
         rf_model.fit(X, y)
         rf_pred = rf_model.predict(X)
         print(f"Random Forest predictions range: {rf_pred.min():.0f} - {rf_pred.max():.0f}")
+        
+        # Multiple Regression model removed from ensemble
         
         return True
         

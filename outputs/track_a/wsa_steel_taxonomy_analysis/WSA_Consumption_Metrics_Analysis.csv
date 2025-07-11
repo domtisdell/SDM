@@ -1,0 +1,4 @@
+WSA_Consumption_Metric,Calculation_Basis,Description,Track_A_Category,Total_Volume_2025_2050_kt,Average_Annual_kt,Growth_Rate_CAGR_percent
+Apparent Steel Use (crude steel equivalent),crude_steel_equivalent,Calculated from Production + Imports - Exports,Apparent Steel Use (crude steel equivalent),190882.88046875,7069.736313657407,0.061219909202825384
+Apparent Steel Use (finished steel products),finished_products,Finished products basis,Apparent Steel Use (finished steel products),172297.4685644531,6381.387724609374,0.05904735652384474
+True Steel Use (finished steel equivalent),indirect_trade_adjusted,Adjusted for indirect trade,True Steel Use (finished steel equivalent),286046.92828124994,10594.330677083331,0.04088854505850392

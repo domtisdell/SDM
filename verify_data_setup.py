@@ -140,7 +140,8 @@ def main():
     if files_ok and loading_ok:
         print("✓ SUCCESS: ML_model is fully self-contained and ready to use!")
         print("\nTo train models, run:")
-        print("  python train_steel_demand_models.py")
+        print("  python track_a_production_forecasting.py    # Track A (Production)")
+        print("  python track_b_consumption_forecasting.py  # Track B (Consumption)")
         return 0
     else:
         print("✗ FAILED: Some issues found with data setup")

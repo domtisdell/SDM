@@ -2,5 +2,12 @@ indicator,column_name,data_type,unit,weight,correlation_threshold,transformation
 Population,Population,continuous,millions,0.25,0.80,linear,1,Australian population from WM data
 Urbanisation,Urbanisation,continuous,percentage,0.05,0.65,linear,1,Urbanisation rate from WM data
 GDP_AUD_Real2015,GDP_AUD_Real2015,continuous,billion_aud,0.35,0.85,log,1,Real GDP in 2015 AUD prices from WM data
+IP_Index_AUD_Real2015?,IP_Index_AUD_Real2015?,continuous,index,0.25,0.75,linear,1,Industrial Production Index AUD Real 2015 from WM data
+FX_USD,FX_USD,continuous,exchange_rate,0.15,0.65,linear,1,USD exchange rate from WM data
+CPI_Index,CPI_Index,continuous,index,0.10,0.60,linear,1,Consumer Price Index from WM data
 Iron_Ore_Production,Iron_Ore_Production,continuous,million_tonnes,0.20,0.70,linear,1,Iron ore production from WM data
 Coal_Production,Coal_Production,continuous,million_tonnes,0.15,0.60,linear,1,Coal production from WM data
+Wind_Offshore,Wind_Offshore,continuous,mw,0.10,0.50,linear,1,Offshore wind capacity from WM data
+Wind_Onshore,Wind_Onshore,continuous,mw,0.10,0.50,linear,1,Onshore wind capacity from WM data
+Solar_Grid,Solar_Grid,continuous,mw,0.10,0.50,linear,1,Grid-scale solar capacity from WM data
+Solar_Distributed,Solar_Distributed,continuous,mw,0.10,0.50,linear,1,Distributed solar capacity from WM data
