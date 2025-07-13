@@ -1,0 +1,12 @@
+level_2_code,level_3_code,level_3_name,share_of_level_2,end_use_sector,description
+BILLETS_COMMERCIAL,BILLETS_COMM_LOW_CARBON,Low Carbon Commercial Billets,0.60,construction,Perplexity: Rebar applications - Medium confidence
+BILLETS_COMMERCIAL,BILLETS_COMM_MEDIUM_CARBON,Medium Carbon Commercial Billets,0.40,manufacturing,Perplexity: General fabrication - Medium confidence
+BILLETS_SBQ,BILLETS_SBQ_LEGACY_AUTO,Legacy Automotive SBQ Billets,0.45,automotive,Perplexity: Pre-2017 auto now limited - Low confidence
+BILLETS_SBQ,BILLETS_SBQ_MINING,Mining Equipment SBQ Billets,0.35,mining_equipment,Perplexity: Heavy machinery - Medium confidence
+BILLETS_SBQ,BILLETS_SBQ_OIL_GAS,Oil and Gas SBQ Billets,0.20,energy_infrastructure,Perplexity: Energy sector - Medium confidence
+STRUCTURAL_BEAMS,UB_GRADE_300,Universal Beams Grade 300,0.80,construction,Perplexity: Standard construction - Medium confidence
+STRUCTURAL_BEAMS,UB_GRADE_300_PLUS,Universal Beams Grade 300PLUS,0.20,infrastructure,Perplexity: Enhanced applications - Medium confidence
+STRUCTURAL_COLUMNS,UC_GRADE_300,Universal Columns Grade 300,0.85,construction,Perplexity: Standard columns - Medium confidence
+STRUCTURAL_COLUMNS,UC_GRADE_300_PLUS,Universal Columns Grade 300PLUS,0.15,infrastructure,Perplexity: Enhanced grade - Medium confidence
+RAILS_STANDARD,RAILS_STD_FREIGHT,Standard Freight Rails,0.70,rail_freight,Perplexity: Freight network - Medium confidence
+RAILS_STANDARD,RAILS_STD_PASSENGER,Standard Passenger Rails,0.30,rail_passenger,Perplexity: Urban rail - Medium confidence

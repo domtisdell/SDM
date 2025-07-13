@@ -1,0 +1,20 @@
+level_1_code,level_2_code,level_2_name,share_of_level_1,client_product,description
+SEMI_FINISHED,BILLETS_COMMERCIAL,Commercial Low and Medium Carbon Billets,0.52,yes,Claude: Slight market shift from 55%
+SEMI_FINISHED,BILLETS_SBQ,Special Bar Quality Billets,0.27,yes,Claude: Enhanced applications increased from 25%
+SEMI_FINISHED,SLABS_STANDARD,Standard Slabs,0.16,yes,Claude: BlueScope production data increased from 15%
+SEMI_FINISHED,BILLETS_DEGASSED,Degassed Commercial Billets,0.03,yes,Claude: Maintained premium applications
+SEMI_FINISHED,SLABS_DEGASSED,Degassed Slabs,0.02,yes,Claude: Maintained premium flat products
+FINISHED_FLAT,HOT_ROLLED_COIL,Hot Rolled Coil,0.38,no,Claude: BlueScope market leader data - reduced from 40%
+FINISHED_FLAT,COLD_ROLLED_COIL,Cold Rolled Coil,0.26,no,Claude: BlueScope production reports - increased from 25%
+FINISHED_FLAT,PLATE,Steel Plate,0.22,no,Claude: Infrastructure/mining demand increased from 20%
+FINISHED_FLAT,GALVANIZED,Galvanized Products,0.14,no,Claude: Construction applications minor adjustment from 15%
+FINISHED_LONG,STRUCTURAL_BEAMS,Universal Beams,0.26,yes,Claude: Infrastructure demand increased from 25%
+FINISHED_LONG,REBAR,Reinforcing Bar,0.27,yes,Claude: Residential growth increased from 25%
+FINISHED_LONG,STRUCTURAL_COLUMNS,Universal Columns,0.14,yes,Claude: Slight adjustment from 15%
+FINISHED_LONG,STRUCTURAL_CHANNELS,Parallel Flange Channels,0.09,yes,Claude: Market consolidation reduced from 12%
+FINISHED_LONG,RAILS_STANDARD,Plain Carbon Rails,0.11,yes,Claude: Infrastructure pipeline increased from 6%
+FINISHED_LONG,STRUCTURAL_ANGLES,Angles,0.04,yes,Claude: Limited data reduced from 8%
+FINISHED_LONG,WIRE_ROD,Wire Rod,0.09,no,Claude: Import reliance reduced from 6%
+TUBE_PIPE,LARGE_DIAMETER_PIPE,Large Diameter Pipe,0.45,no,Claude: Gas transmission networks - NEW CATEGORY
+TUBE_PIPE,SMALL_MEDIUM_PIPE,Small/Medium Pipe,0.30,no,Claude: General applications - NEW CATEGORY
+TUBE_PIPE,WELDED_STRUCTURAL,Welded Structural Hollow Sections,0.25,no,Claude: Building applications reduced from 30%

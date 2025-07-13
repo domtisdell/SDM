@@ -1,0 +1,4 @@
+period,gdp_construction,infrastructure_traditional,manufacturing_ip,wm_renewable_energy,other_sectors,description
+2025-2030,0.340,0.230,0.290,0.030,0.110,Gemini 25 Pro weights: Construction 34% Infrastructure 23% Manufacturing 29% Renewable 3% Other 11%
+2031-2040,0.336,0.228,0.286,0.045,0.105,Mid-term with renewable growth from 3% to 4.5%
+2041-2050,0.330,0.225,0.280,0.065,0.100,Long-term renewable expansion to 6.5% with Gemini projections

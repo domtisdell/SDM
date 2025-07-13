@@ -1,0 +1,21 @@
+sector,level_1_code,share,description
+construction,FINISHED_LONG,0.65,Gemini: Baseline maintained - structural focus
+construction,FINISHED_FLAT,0.20,Gemini: Baseline maintained
+construction,SEMI_FINISHED,0.08,Gemini: Baseline maintained
+construction,TUBE_PIPE,0.07,Gemini: Baseline maintained
+infrastructure_traditional,FINISHED_LONG,0.55,Gemini: Baseline maintained
+infrastructure_traditional,TUBE_PIPE,0.25,Gemini: Baseline maintained
+infrastructure_traditional,FINISHED_FLAT,0.12,Gemini: Baseline maintained
+infrastructure_traditional,SEMI_FINISHED,0.08,Gemini: Baseline maintained
+manufacturing,SEMI_FINISHED,0.55,Gemini: Baseline maintained post-auto
+manufacturing,FINISHED_FLAT,0.30,Gemini: Baseline maintained
+manufacturing,FINISHED_LONG,0.12,Gemini: Baseline maintained
+manufacturing,TUBE_PIPE,0.03,Gemini: Baseline maintained
+renewable_energy,FINISHED_FLAT,0.45,Gemini: Baseline maintained - wind towers
+renewable_energy,FINISHED_LONG,0.40,Gemini: Baseline maintained - solar mounting
+renewable_energy,SEMI_FINISHED,0.10,Gemini: Baseline maintained
+renewable_energy,TUBE_PIPE,0.05,Gemini: Baseline maintained
+other_sectors,FINISHED_LONG,0.40,Gemini: Increased +5% mining/ag focus
+other_sectors,SEMI_FINISHED,0.30,Gemini: Reduced -10% more imports
+other_sectors,FINISHED_FLAT,0.20,Gemini: Increased +5% wear plates
+other_sectors,TUBE_PIPE,0.10,Gemini: Baseline maintained

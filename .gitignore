@@ -101,4 +101,4 @@ dmypy.json
 
 # Output directories (exclude from repo, keep locally)
 outputs/
-forecasts/
+# forecasts/ - now tracking forecast results

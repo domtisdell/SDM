@@ -1,0 +1,12 @@
+level_2_code,level_3_code,level_3_name,share_of_level_2,end_use_sector,description
+BILLETS_COMMERCIAL,BILLETS_COMM_LOW_CARBON,Low Carbon Commercial Billets,0.40,construction,Claude: Reduced from 60% post-automotive shift to medium carbon
+BILLETS_COMMERCIAL,BILLETS_COMM_MEDIUM_CARBON,Medium Carbon Commercial Billets,0.60,manufacturing,Claude: Increased from 40% focus on general engineering/fabrication
+BILLETS_SBQ,BILLETS_SBQ_MINING,Mining Equipment SBQ Billets,0.50,mining_equipment,Claude: Increased +15% reflecting large-scale mining industry
+BILLETS_SBQ,BILLETS_SBQ_OIL_GAS,Oil and Gas SBQ Billets,0.20,energy_infrastructure,Claude: Maintained energy sector applications
+BILLETS_SBQ,BILLETS_SBQ_INDUSTRIAL,Other Industrial SBQ Billets,0.30,manufacturing,Claude: Replaces automotive grade - general machinery/agricultural
+STRUCTURAL_BEAMS,UB_GRADE_300,Universal Beams Grade 300,0.78,construction,Claude: AS/NZS 3679.1:2016 dominant structural grade
+STRUCTURAL_BEAMS,UB_GRADE_300_PLUS,Universal Beams Grade 300PLUS,0.17,infrastructure,Claude: Australian Steel Institute enhanced properties
+STRUCTURAL_BEAMS,UB_GRADE_350_400,Universal Beams Grade 350/400,0.05,infrastructure,Claude: Special orders higher strength requirements
+RAILS_STANDARD,RAILS_STD_FREIGHT,Standard Freight Rails,0.55,rail_freight,Claude: AS 1085.1-2002 68kg/m heavy freight mainline
+RAILS_STANDARD,RAILS_STD_PASSENGER,Standard Passenger Rails,0.35,rail_passenger,Claude: ARSC 60kg/m general freight/passenger
+RAILS_STANDARD,RAILS_LIGHT_RAIL,Light Rail,0.10,urban_transport,Claude: 31-50kg urban transport city networks

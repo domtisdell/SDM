@@ -1,0 +1,21 @@
+sector,level_1_code,share,description
+construction,FINISHED_LONG,0.60,ChatGPT: Buildings focus on structural steel
+construction,FINISHED_FLAT,0.22,ChatGPT: Increased for residential/commercial
+construction,SEMI_FINISHED,0.10,ChatGPT: Local processing billets
+construction,TUBE_PIPE,0.08,ChatGPT: Structural hollow sections CHS
+infrastructure_traditional,FINISHED_LONG,0.50,ChatGPT: Railways and bridge structures
+infrastructure_traditional,TUBE_PIPE,0.28,ChatGPT: Pipeline expansion for gas grid
+infrastructure_traditional,FINISHED_FLAT,0.15,ChatGPT: Heavy infrastructure plate
+infrastructure_traditional,SEMI_FINISHED,0.07,ChatGPT: Infrastructure fabrication
+manufacturing,FINISHED_FLAT,0.35,ChatGPT: Non-auto flat products focus
+manufacturing,SEMI_FINISHED,0.50,ChatGPT: Industrial billets and slabs
+manufacturing,FINISHED_LONG,0.12,ChatGPT: Machinery and equipment
+manufacturing,TUBE_PIPE,0.03,ChatGPT: Industrial tubing applications
+renewable_energy,FINISHED_FLAT,0.50,ChatGPT: Wind turbine tower plates
+renewable_energy,FINISHED_LONG,0.35,ChatGPT: Solar mounting structures
+renewable_energy,SEMI_FINISHED,0.10,ChatGPT: Local component processing
+renewable_energy,TUBE_PIPE,0.05,ChatGPT: Foundation and grid tubing
+other_sectors,FINISHED_LONG,0.35,ChatGPT: Mining and ag machinery
+other_sectors,SEMI_FINISHED,0.35,ChatGPT: Processing inputs
+other_sectors,FINISHED_FLAT,0.20,ChatGPT: Mining wear plates
+other_sectors,TUBE_PIPE,0.10,ChatGPT: Specialized applications

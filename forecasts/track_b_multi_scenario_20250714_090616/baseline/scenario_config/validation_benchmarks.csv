@@ -1,0 +1,15 @@
+category,metric,target_value,acceptable_value,critical_value,description
+Hot Rolled Structural Steel,MAPE,3.5,6.0,10.0,Mean Absolute Percentage Error
+Hot Rolled Structural Steel,R2,0.92,0.85,0.75,R-squared coefficient
+Hot Rolled Structural Steel,RMSE,45000,65000,85000,Root Mean Square Error in tonnes
+Rail Products,MAPE,4.5,7.5,12.0,Mean Absolute Percentage Error
+Rail Products,R2,0.88,0.80,0.70,R-squared coefficient
+Rail Products,RMSE,8000,12000,18000,Root Mean Square Error in tonnes
+Steel Billets,MAPE,3.0,5.5,9.0,Mean Absolute Percentage Error
+Steel Billets,R2,0.90,0.83,0.73,R-squared coefficient
+Steel Billets,RMSE,35000,50000,70000,Root Mean Square Error in tonnes
+Steel Slabs,MAPE,4.0,6.5,11.0,Mean Absolute Percentage Error
+Steel Slabs,R2,0.87,0.80,0.70,R-squared coefficient
+Steel Slabs,RMSE,85000,115000,150000,Root Mean Square Error in tonnes
+Overall,Training_Time_Minutes,60,120,240,Maximum acceptable training time
+Overall,Memory_Usage_MB,2048,4096,8192,Maximum memory usage during training

@@ -1,0 +1,20 @@
+level_1_code,level_2_code,level_2_name,share_of_level_1,client_product,description
+SEMI_FINISHED,BILLETS_COMMERCIAL,Commercial Low and Medium Carbon Billets,0.55,yes,Perplexity: Standard processing - Medium confidence
+SEMI_FINISHED,BILLETS_SBQ,Special Bar Quality Billets,0.25,yes,Perplexity: Specialty applications - Medium confidence
+SEMI_FINISHED,SLABS_STANDARD,Standard Slabs,0.15,yes,Perplexity: Flat product production - Medium confidence
+SEMI_FINISHED,BILLETS_DEGASSED,Degassed Commercial Billets,0.03,yes,Perplexity: Premium applications - Low confidence
+SEMI_FINISHED,SLABS_DEGASSED,Degassed Slabs,0.02,yes,Perplexity: Premium flat products - Low confidence
+FINISHED_LONG,STRUCTURAL_BEAMS,Universal Beams,0.25,yes,Perplexity: Building framework - Medium confidence
+FINISHED_LONG,REBAR,Reinforcing Bar,0.25,yes,Perplexity: Concrete reinforcement - Medium confidence
+FINISHED_LONG,STRUCTURAL_COLUMNS,Universal Columns,0.15,yes,Perplexity: Vertical supports - Medium confidence
+FINISHED_LONG,STRUCTURAL_CHANNELS,Parallel Flange Channels,0.12,yes,Perplexity: Secondary elements - Medium confidence
+FINISHED_LONG,RAILS_STANDARD,Plain Carbon Rails,0.06,yes,Perplexity: Rail infrastructure - Medium confidence
+FINISHED_LONG,OTHER_LONG_PRODUCTS,Other Long Products,0.17,yes,Perplexity: Wire rod angles etc - Low confidence
+FINISHED_FLAT,HOT_ROLLED_COIL,Hot Rolled Coil,0.40,no,Perplexity: General manufacturing input - Medium confidence
+FINISHED_FLAT,COLD_ROLLED_COIL,Cold Rolled Coil,0.25,no,Perplexity: Appliances auto - Medium confidence
+FINISHED_FLAT,PLATE,Steel Plate,0.20,no,Perplexity: Construction marine - Medium confidence
+FINISHED_FLAT,GALVANIZED,Galvanized Products,0.15,no,Perplexity: Corrosion resistance - Medium confidence
+TUBE_PIPE,WELDED_STRUCTURAL,Welded Structural Hollow Sections,0.30,no,Perplexity: Construction - Medium confidence
+TUBE_PIPE,SEAMLESS_LINE_PIPE,Seamless Line Pipe,0.25,no,Perplexity: Energy infrastructure - Medium confidence
+TUBE_PIPE,WELDED_LINE_PIPE,Welded Line Pipe,0.20,no,Perplexity: Utilities - Medium confidence
+TUBE_PIPE,OTHER_TUBE_PIPE,Other Tube/Pipe,0.25,no,Perplexity: Industrial applications - Low confidence

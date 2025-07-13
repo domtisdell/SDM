@@ -1,0 +1,21 @@
+sector,level_1_code,share,description
+construction,FINISHED_LONG,0.65,Structural beams and columns based on Australian Steel Institute data
+construction,FINISHED_FLAT,0.20,Construction plate and sheet products
+construction,SEMI_FINISHED,0.08,Local fabrication billets and slabs
+construction,TUBE_PIPE,0.07,Structural hollow sections and CHS
+infrastructure_traditional,FINISHED_LONG,0.55,Railway rails and bridge structures per Austrade reports
+infrastructure_traditional,TUBE_PIPE,0.25,Pipeline infrastructure based on ABS pipeline data
+infrastructure_traditional,FINISHED_FLAT,0.12,Marine and heavy infrastructure plate
+infrastructure_traditional,SEMI_FINISHED,0.08,Infrastructure fabrication inputs
+manufacturing,SEMI_FINISHED,0.55,Industrial billets and slabs per ABS manufacturing data
+manufacturing,FINISHED_FLAT,0.30,Automotive and white goods steel based on FCAI data
+manufacturing,FINISHED_LONG,0.12,Industrial machinery and equipment steel
+manufacturing,TUBE_PIPE,0.03,Specialized industrial tubing
+renewable_energy,FINISHED_FLAT,0.45,Wind turbine towers per Clean Energy Australia data
+renewable_energy,FINISHED_LONG,0.40,Solar mounting and grid structures per AEMO reports
+renewable_energy,SEMI_FINISHED,0.10,Local renewable fabrication inputs
+renewable_energy,TUBE_PIPE,0.05,Grid infrastructure and foundation piling
+other_sectors,SEMI_FINISHED,0.40,Mining equipment billets and processing inputs
+other_sectors,FINISHED_LONG,0.35,Agricultural machinery and transport infrastructure
+other_sectors,FINISHED_FLAT,0.15,Mining equipment plate and transport applications
+other_sectors,TUBE_PIPE,0.10,Specialized mining and agricultural tubing

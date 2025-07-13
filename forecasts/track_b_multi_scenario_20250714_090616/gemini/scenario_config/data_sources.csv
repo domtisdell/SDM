@@ -1,0 +1,8 @@
+source_name,file_path,description,data_type,date_column,frequency,quality_score
+wsa_steel_data,data/worldsteelassoc/WSA_Au_2004-2023.csv,WSA Australian steel production and consumption data 2004-2023,time_series,Year,annual,0.95
+macro_drivers_wm,data/macro_drivers/WM_macros.csv,Wood Mackenzie macro economic drivers with forecasts,time_series,Year,annual,0.90
+forecasts_reference,data/reference_forecasts/Steel_Consumption_Forecasts_2025-2050.csv,Reference forecasts for validation,time_series,Year,annual,0.85
+regional_factors,config/regional_adjustment_factors.csv,State-level adjustment factors,cross_sectional,State,static,0.80
+steel_categories,config/steel_categories.csv,Steel product definitions and properties,metadata,NA,static,0.95
+economic_indicators,config/economic_indicators.csv,Economic indicator definitions and weights,metadata,NA,static,0.90
+validation_benchmarks,config/validation_benchmarks.csv,Model performance benchmarks,metadata,NA,static,0.90

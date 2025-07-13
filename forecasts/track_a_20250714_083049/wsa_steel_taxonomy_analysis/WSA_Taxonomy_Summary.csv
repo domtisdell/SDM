@@ -1,0 +1,11 @@
+WSA_Taxonomy_Section,WSA_Level,Track_A_Categories_Count,Total_Volume_2025_2050_kt,Track_A_Coverage
+Production Hierarchy,Raw Materials,1,12705465.0,Yes
+Production Hierarchy,Primary Processing,1,90033.0,Yes
+Production Hierarchy,Crude Steel Production,1,120797.0,Yes
+Production Hierarchy,Semi-finished Products,2,120802.0,Yes
+Production Hierarchy,Hot Rolled Products,2,103301.0,Yes
+Production Hierarchy,Specialized Finished Products,5,96189.0,Yes
+Tubular Branch,Tubular Products Branch,1,3441.0,Yes
+Consumption Metrics,Apparent Steel Use (crude steel equivalent),1,137710.0,Yes
+Consumption Metrics,Apparent Steel Use (finished steel products),1,124974.0,Yes
+Consumption Metrics,True Steel Use (finished steel equivalent),1,168149.0,Yes

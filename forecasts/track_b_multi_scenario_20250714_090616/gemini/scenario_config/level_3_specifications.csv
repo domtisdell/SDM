@@ -1,0 +1,26 @@
+level_2_code,level_3_code,level_3_name,share_of_level_2,end_use_sector,description
+BILLETS_COMMERCIAL,BILLETS_COMM_LOW_CARBON,Low Carbon Commercial Billets,0.60,construction,0.08-0.15% carbon content for rebar
+BILLETS_COMMERCIAL,BILLETS_COMM_MEDIUM_CARBON,Medium Carbon Commercial Billets,0.40,manufacturing,0.15-0.25% carbon content for general fabrication
+BILLETS_SBQ,BILLETS_SBQ_LEGACY_AUTO,Legacy Automotive SBQ Billets,0.25,automotive,Reduced post-2017: aftermarket and EV components only
+BILLETS_SBQ,BILLETS_SBQ_MINING,Mining Equipment SBQ Billets,0.50,mining_equipment,Increased share: heavy machinery and mining equipment (post-automotive rebalance)
+BILLETS_SBQ,BILLETS_SBQ_OIL_GAS,Oil and Gas SBQ Billets,0.25,energy_infrastructure,Increased share: pipeline and processing equipment
+BILLETS_DEGASSED,BILLETS_DEG_PREMIUM_AUTO,Premium Automotive Degassed Billets,0.60,automotive,EV and premium automotive applications
+BILLETS_DEGASSED,BILLETS_DEG_PRECISION,Precision Machinery Degassed Billets,0.40,manufacturing,High-performance precision applications
+SLABS_STANDARD,SLABS_STD_HOT_ROLLED,Standard Hot Rolled Slabs,0.70,manufacturing,General hot-rolled coil production
+SLABS_STANDARD,SLABS_STD_COLD_ROLLED,Standard Cold Rolled Slabs,0.30,automotive,Automotive and appliance applications
+SLABS_DEGASSED,SLABS_DEG_AUTOMOTIVE,Automotive Degassed Slabs,0.60,automotive,High-formability automotive panels
+SLABS_DEGASSED,SLABS_DEG_APPLIANCE,Appliance Degassed Slabs,0.40,domestic_appliances,White goods and appliances
+STRUCTURAL_BEAMS,UB_GRADE_300,Universal Beams Grade 300,0.80,construction,Standard 300MPa grade beams
+STRUCTURAL_BEAMS,UB_GRADE_300_PLUS,Universal Beams Grade 300PLUS,0.20,infrastructure,Enhanced 300PLUS grade beams
+STRUCTURAL_COLUMNS,UC_GRADE_300,Universal Columns Grade 300,0.85,construction,Standard grade columns
+STRUCTURAL_COLUMNS,UC_GRADE_300_PLUS,Universal Columns Grade 300PLUS,0.15,infrastructure,Enhanced grade columns
+STRUCTURAL_CHANNELS,PFC_STANDARD,Standard PFC Channels,0.90,construction,Standard parallel flange channels
+STRUCTURAL_CHANNELS,PFC_HIGH_STRENGTH,High Strength PFC Channels,0.10,infrastructure,Enhanced strength channels
+STRUCTURAL_ANGLES,ANGLES_STANDARD,Standard Angles,0.90,construction,General construction angles
+STRUCTURAL_ANGLES,ANGLES_HIGH_STRENGTH,High Strength Angles,0.10,infrastructure,Enhanced strength angles
+RAILS_STANDARD,RAILS_STD_FREIGHT,Standard Freight Rails,0.70,rail_freight,100 tonnes/km freight applications
+RAILS_STANDARD,RAILS_STD_PASSENGER,Standard Passenger Rails,0.30,rail_passenger,Urban passenger rail applications
+RAILS_HEAD_HARDENED,RAILS_HH_HEAVY_HAUL,Heavy Haul Head Hardened Rails,0.80,mining_transport,135 tonnes/km heavy haul mining
+RAILS_HEAD_HARDENED,RAILS_HH_CRITICAL_INFRA,Critical Infrastructure Head Hardened Rails,0.20,rail_infrastructure,High-traffic mainline applications
+SLEEPER_BAR,SLEEPER_BAR_COAL_WAGON,Coal Wagon Sleeper Bar,0.60,mining_transport,30 tonnes/unit coal wagon applications
+SLEEPER_BAR,SLEEPER_BAR_GENERAL_FREIGHT,General Freight Sleeper Bar,0.40,rail_freight,General freight wagon applications
