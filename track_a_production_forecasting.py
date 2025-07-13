@@ -271,9 +271,37 @@ class RegressionMLTrainer:
         
         # Save forecasts
         forecast_df = pd.DataFrame(all_forecasts)
-        forecast_file = self.output_dir / 'ML_Algorithm_Forecasts_2025-2050.csv'
-        forecast_df.to_csv(forecast_file, index=False)
-        self.logger.info(f"Forecasts saved to {forecast_file}")
+        
+        # Combine with historical data for complete timeseries (2004-2050)
+        if self.historical_data is not None:
+            # Prepare historical data with algorithm columns
+            historical_for_export = self.historical_data.copy()
+            
+            # For each category, add algorithm predictions (using actual historical values)
+            for category in self.category_features.keys():
+                if category in historical_for_export.columns:
+                    for algo in ['XGBoost', 'RandomForest']:
+                        col_name = f'{category}_{algo}'
+                        # Use actual historical values for the historical period
+                        historical_for_export[col_name] = historical_for_export[category]
+            
+            # Combine historical and forecast data
+            complete_df = pd.concat([historical_for_export, forecast_df], ignore_index=True)
+            
+            # Save complete timeseries
+            complete_file = self.output_dir / 'ML_Algorithm_Forecasts_2004-2050.csv'
+            complete_df.to_csv(complete_file, index=False)
+            self.logger.info(f"Complete forecasts with historical data saved to {complete_file}")
+            
+            # Also save forecast-only file for compatibility
+            forecast_file = self.output_dir / 'ML_Algorithm_Forecasts_2025-2050.csv'
+            forecast_df.to_csv(forecast_file, index=False)
+            self.logger.info(f"Forecast-only data saved to {forecast_file}")
+        else:
+            # Fallback if no historical data
+            forecast_file = self.output_dir / 'ML_Algorithm_Forecasts_2025-2050.csv'
+            forecast_df.to_csv(forecast_file, index=False)
+            self.logger.info(f"Forecasts saved to {forecast_file}")
         
         return forecast_df
     
@@ -533,8 +561,9 @@ class RegressionMLTrainer:
         # Create ensemble dataframe
         ensemble_df = pd.DataFrame(ensemble_forecasts)
         
-        # Apply hierarchical consistency validation
-        ensemble_df = self.apply_hierarchical_consistency(ensemble_df)
+        # Skip hierarchical consistency validation to keep pure averages
+        # Comment out the line below if you want to enforce WSA hierarchical relationships
+        # ensemble_df = self.apply_hierarchical_consistency(ensemble_df)
         
         # Calculate total ensemble forecast by year
         total_ensemble = []
@@ -549,10 +578,47 @@ class RegressionMLTrainer:
         # Add total column
         ensemble_df['Total_Steel_Consumption_Ensemble'] = total_ensemble
         
-        # Save ensemble forecasts
-        ensemble_file = self.output_dir / 'Ensemble_Forecasts_2025-2050.csv'
-        ensemble_df.to_csv(ensemble_file, index=False)
-        self.logger.info(f"Ensemble forecasts saved to {ensemble_file}")
+        # Save ensemble forecasts with historical data
+        if self.historical_data is not None:
+            # Prepare historical data with ensemble columns
+            historical_ensemble = self.historical_data.copy()
+            
+            # For each category, add ensemble column (using actual historical values)
+            for category in self.category_features.keys():
+                if category in historical_ensemble.columns:
+                    ensemble_col = f'{category}_Ensemble'
+                    historical_ensemble[ensemble_col] = historical_ensemble[category]
+            
+            # Add total ensemble column for historical data
+            total_historical = []
+            for idx, row in historical_ensemble.iterrows():
+                year_total = 0
+                for category in self.category_features.keys():
+                    if category in historical_ensemble.columns and not pd.isna(row[category]):
+                        year_total += row[category]
+                total_historical.append(year_total)
+            historical_ensemble['Total_Steel_Consumption_Ensemble'] = total_historical
+            
+            # Combine historical and forecast ensemble data
+            complete_ensemble_df = pd.concat([historical_ensemble, ensemble_df], ignore_index=True)
+            
+            # Save complete timeseries ensemble
+            complete_ensemble_file = self.output_dir / 'Ensemble_Forecasts_2004-2050.csv'
+            complete_ensemble_df.to_csv(complete_ensemble_file, index=False)
+            self.logger.info(f"Complete ensemble forecasts with historical data saved to {complete_ensemble_file}")
+            
+            # Also save forecast-only file for compatibility  
+            ensemble_file = self.output_dir / 'Ensemble_Forecasts_2025-2050.csv'
+            ensemble_df.to_csv(ensemble_file, index=False)
+            self.logger.info(f"Forecast-only ensemble data saved to {ensemble_file}")
+        else:
+            # Fallback if no historical data
+            ensemble_file = self.output_dir / 'Ensemble_Forecasts_2025-2050.csv'
+            ensemble_df.to_csv(ensemble_file, index=False)
+            self.logger.info(f"Ensemble forecasts saved to {ensemble_file}")
+        
+        self.logger.info("Note: Ensemble values are pure averages of XGBoost and Random Forest predictions")
+        self.logger.info("      No hierarchical consistency adjustments have been applied")
         
         # Log key ensemble results
         if len(total_ensemble) > 0:
@@ -727,7 +793,7 @@ class RegressionMLTrainer:
         for j in range(len(categories), len(axes)):
             axes[j].set_visible(False)
         
-        plt.suptitle('Historical Data, Individual Algorithms & Ensemble Forecasts (2004-2050)', 
+        plt.suptitle('Historical Data (2004-2023) & ML Ensemble Forecasts (2024-2050)', 
                      fontsize=16, fontweight='bold')
         plt.tight_layout()
         plt.savefig(viz_dir / 'historical_ensemble_vs_algorithms.png', dpi=300, bbox_inches='tight')
@@ -906,10 +972,21 @@ class RegressionMLTrainer:
             # Import new WSA taxonomy module
             from analysis.wsa_steel_taxonomy import WSASteelTaxonomyAnalyzer
             
-            # Find the ensemble forecast file
+            # Try to find the complete 2004-2050 file first, fallback to 2025-2050
+            complete_ensemble_file = self.output_dir / 'Ensemble_Forecasts_2004-2050.csv'
             ensemble_file = self.output_dir / 'Ensemble_Forecasts_2025-2050.csv'
             
-            if ensemble_file.exists():
+            # Use complete file if available, otherwise use forecast-only file
+            if complete_ensemble_file.exists():
+                file_to_use = complete_ensemble_file
+                self.logger.info("Using complete 2004-2050 ensemble file for WSA analysis")
+            elif ensemble_file.exists():
+                file_to_use = ensemble_file
+                self.logger.info("Using 2025-2050 ensemble file for WSA analysis")
+            else:
+                file_to_use = None
+            
+            if file_to_use:
                 # Create WSA taxonomy analysis subdirectory
                 wsa_output_dir = self.output_dir / 'wsa_steel_taxonomy_analysis'
                 wsa_output_dir.mkdir(exist_ok=True)
@@ -919,7 +996,7 @@ class RegressionMLTrainer:
                 
                 # Generate comprehensive WSA analysis
                 generated_files = analyzer.generate_complete_wsa_analysis(
-                    track_a_forecast_file=str(ensemble_file),
+                    track_a_forecast_file=str(file_to_use),
                     output_directory=str(wsa_output_dir)
                 )
                 
@@ -971,6 +1048,73 @@ class RegressionMLTrainer:
         except Exception as e:
             self.logger.warning(f"Could not extract WSA v3 structure: {str(e)}")
             return {}
+    
+    def _generate_pdf_reports(self) -> None:
+        """Generate PDF reports from markdown files."""
+        self.logger.info("Generating PDF reports...")
+        
+        try:
+            # Check if convert_md_to_pdf_final.py exists
+            pdf_converter_path = Path("convert_md_to_pdf_final.py")
+            if not pdf_converter_path.exists():
+                self.logger.warning("PDF converter script not found, skipping PDF generation")
+                return
+            
+            # Generate PDFs for outputs/track_a directory
+            track_a_outputs = Path("outputs/track_a")
+            if track_a_outputs.exists():
+                # Find all markdown files
+                md_files = list(track_a_outputs.rglob("*.md"))
+                if md_files:
+                    self.logger.info(f"Found {len(md_files)} markdown files in outputs/track_a")
+                    
+                    # Create PDF output directory
+                    pdf_output_dir = track_a_outputs / "pdf_reports"
+                    pdf_output_dir.mkdir(exist_ok=True)
+                    
+                    # Run the PDF converter
+                    import subprocess
+                    result = subprocess.run(
+                        ["python3", "convert_md_to_pdf_final.py", str(track_a_outputs), str(pdf_output_dir)],
+                        capture_output=True,
+                        text=True
+                    )
+                    
+                    if result.returncode == 0:
+                        self.logger.info(f"PDF reports generated successfully in {pdf_output_dir}")
+                    else:
+                        self.logger.error(f"PDF generation failed: {result.stderr}")
+                else:
+                    self.logger.info("No markdown files found to convert to PDF")
+            
+            # Generate PDFs for forecasts directory (with mermaid diagrams)
+            forecast_dir = self.output_dir
+            if forecast_dir.exists():
+                # Find all markdown files in the forecast directory and subdirectories
+                all_md_files = list(forecast_dir.rglob("*.md"))
+                
+                if all_md_files:
+                    self.logger.info(f"Found {len(all_md_files)} markdown files in {forecast_dir}")
+                    
+                    # Create single pdf output directory within the forecast run folder
+                    pdf_output_dir = forecast_dir / "pdf_reports"
+                    pdf_output_dir.mkdir(exist_ok=True)
+                    
+                    # Use the final converter which supports mermaid diagrams
+                    import subprocess
+                    result = subprocess.run(
+                        ["python3", "convert_md_to_pdf_final.py", str(forecast_dir), str(pdf_output_dir)],
+                        capture_output=True,
+                        text=True
+                    )
+                    
+                    if result.returncode == 0:
+                        self.logger.info(f"PDF reports generated successfully in {pdf_output_dir}")
+                    else:
+                        self.logger.error(f"PDF generation failed: {result.stderr}")
+                            
+        except Exception as e:
+            self.logger.error(f"Error generating PDF reports: {str(e)}")
     
     def save_results(self) -> None:
         """Save all results and performance comparison."""
@@ -1027,70 +1171,11 @@ class RegressionMLTrainer:
                 model_file = models_dir / f'{category}_{algo_name}_model.joblib'
                 joblib.dump(model, model_file)
         
-        # Copy key results to project-level outputs directory
-        import shutil
-        from pathlib import Path
-        
-        outputs_dir = Path("outputs")
-        outputs_dir.mkdir(exist_ok=True)
-        
-        # Create track_a subdirectory in outputs
-        track_a_outputs = outputs_dir / "track_a"
-        track_a_outputs.mkdir(exist_ok=True)
-        
-        # Copy key files to outputs
-        key_files = [
-            "Ensemble_Forecasts_2025-2050.csv",
-            "ML_Algorithm_Forecasts_2025-2050.csv", 
-            "Algorithm_Performance_Comparison.csv"
-        ]
-        
-        self.logger.info(f"Copying key results to {track_a_outputs}...")
-        for file in key_files:
-            source = self.output_dir / file
-            if source.exists():
-                shutil.copy2(source, track_a_outputs / file)
-                self.logger.info(f"Copied {file} to outputs/track_a/")
-        
-        # Copy feature importance directory
-        source_importance = self.output_dir / "feature_importance"
-        target_importance = track_a_outputs / "feature_importance"
-        if source_importance.exists():
-            if target_importance.exists():
-                shutil.rmtree(target_importance)
-            shutil.copytree(source_importance, target_importance)
-            self.logger.info("Copied feature importance to outputs/track_a/feature_importance/")
-        
-        # Copy models directory
-        source_models = self.output_dir / "models"
-        target_models = track_a_outputs / "models"
-        if source_models.exists():
-            if target_models.exists():
-                shutil.rmtree(target_models)
-            shutil.copytree(source_models, target_models)
-            self.logger.info("Copied models to outputs/track_a/models/")
-        
-        # Copy visualizations directory
-        source_viz = self.output_dir / "visualizations"
-        target_viz = track_a_outputs / "visualizations"
-        if source_viz.exists():
-            if target_viz.exists():
-                shutil.rmtree(target_viz)
-            shutil.copytree(source_viz, target_viz)
-            self.logger.info("Copied visualizations to outputs/track_a/visualizations/")
-        
-        # Copy WSA Steel Taxonomy Analysis directory
-        source_wsa = self.output_dir / "wsa_steel_taxonomy_analysis"
-        target_wsa = track_a_outputs / "wsa_steel_taxonomy_analysis"
-        if source_wsa.exists():
-            if target_wsa.exists():
-                shutil.rmtree(target_wsa)
-            shutil.copytree(source_wsa, target_wsa)
-            self.logger.info("Copied WSA Steel Taxonomy Analysis to outputs/track_a/wsa_steel_taxonomy_analysis/")
-        
         self.logger.info(f"All results saved to {self.output_dir}")
-        self.logger.info(f"Key results also available in {track_a_outputs}")
         self.logger.info("✅ WSA Steel Taxonomy Analysis completed with Track A forecasts")
+        
+        # Generate PDF reports
+        self._generate_pdf_reports()
 
 def main():
     """Main execution function."""
@@ -1119,10 +1204,11 @@ def main():
     trainer.save_results()
     
     print("\\n" + "=" * 65)
-    print("✅ Training completed! Check the forecasts/track_a_*/ and outputs/track_a/ directories for results.")
+    print("✅ Training completed! Check the forecasts/track_a_*/ directory for all results.")
     print("🏗️ WSA Steel Taxonomy Analysis included with comprehensive CSVs, visualizations, and mermaid hierarchy charts.")
     print("   Based on official WSA hierarchy diagrams - Production Flow, Trade Flow, and Consumption Metrics.")
-    print("   Includes interactive mermaid diagrams for 2025, 2035, and 2050 showing volume flows through WSA hierarchy.")
+    print("   Includes interactive mermaid diagrams for 2015, 2020, 2025, 2035, and 2050 showing volume flows through WSA hierarchy.")
+    print("📄 PDF reports automatically generated from all markdown files with rendered mermaid diagrams.")
     print("=" * 65)
 
 if __name__ == "__main__":

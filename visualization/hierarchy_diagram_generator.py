@@ -50,9 +50,19 @@ class HierarchyDiagramGenerator:
             Dictionary containing hierarchical forecast data
         """
         try:
-            # Load Level 0 data
-            level_0_file = os.path.join(self.forecast_results_path, "hierarchical_level_0_forecasts_2025_2050.csv")
+            # Try to load from complete timeseries file first (includes historical data)
+            level_0_file = os.path.join(self.forecast_results_path, "hierarchical_level_0_forecasts_2004_2050.csv")
+            if not os.path.exists(level_0_file):
+                # Fall back to forecast-only file
+                level_0_file = os.path.join(self.forecast_results_path, "hierarchical_level_0_forecasts_2025_2050.csv")
+            
             level_0_df = pd.read_csv(level_0_file)
+            
+            # Check if year exists in data
+            if year not in level_0_df['Year'].values:
+                self.logger.warning(f"Year {year} not found in forecast data, using default values")
+                return self._get_default_data(year)
+                
             year_data = level_0_df[level_0_df['Year'] == year].iloc[0]
             
             # Parse sectoral breakdown
@@ -61,8 +71,18 @@ class HierarchyDiagramGenerator:
             total_demand = year_data['total_steel_demand']
             
             # Load Level 1 data
-            level_1_file = os.path.join(self.forecast_results_path, "hierarchical_level_1_forecasts_2025_2050.csv")
+            level_1_file = os.path.join(self.forecast_results_path, "hierarchical_level_1_forecasts_2004_2050.csv")
+            if not os.path.exists(level_1_file):
+                # Fall back to forecast-only file
+                level_1_file = os.path.join(self.forecast_results_path, "hierarchical_level_1_forecasts_2025_2050.csv")
+            
             level_1_df = pd.read_csv(level_1_file)
+            
+            # Check if year exists in Level 1 data
+            if year not in level_1_df['Year'].values:
+                # Use Level 0 data to estimate Level 1
+                return self._estimate_level_1_from_level_0(year, total_demand, sectoral_breakdown)
+                
             level_1_data = level_1_df[level_1_df['Year'] == year].iloc[0]
             
             return {
@@ -80,6 +100,36 @@ class HierarchyDiagramGenerator:
         except Exception as e:
             self.logger.error(f"Error loading forecast data for {year}: {e}")
             return self._get_default_data(year)
+    
+    def _estimate_level_1_from_level_0(self, year: int, total_demand: float, sectoral_breakdown: Dict) -> Dict[str, Dict[str, float]]:
+        """
+        Estimate Level 1 data based on Level 0 data and typical proportions.
+        
+        Args:
+            year: Year
+            total_demand: Total steel demand
+            sectoral_breakdown: Sectoral breakdown dictionary
+            
+        Returns:
+            Estimated data structure
+        """
+        # Use typical proportions based on steel industry patterns
+        level_1_proportions = {
+            'SEMI_FINISHED': 0.15,  # 15% semi-finished
+            'FINISHED_FLAT': 0.45,  # 45% flat products
+            'FINISHED_LONG': 0.30,  # 30% long products
+            'TUBE_PIPE': 0.10       # 10% tubes and pipes
+        }
+        
+        return {
+            'year': year,
+            'total_demand': total_demand,
+            'sectoral_breakdown': sectoral_breakdown,
+            'level_1_data': {
+                key: total_demand * proportion
+                for key, proportion in level_1_proportions.items()
+            }
+        }
     
     def _get_default_data(self, year: int) -> Dict[str, Dict[str, float]]:
         """

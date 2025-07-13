@@ -310,11 +310,15 @@ class DualTrackSteelForecastingSystem:
             current_forecasts, hierarchical_forecasts
         )
         
+        # Load historical steel data
+        steel_data = all_data.get('wsa_steel_data', pd.DataFrame())
+        
         # Create unified results
         unified_results = {
             'current_model_forecasts': current_forecasts,
             'hierarchical_forecasts': hierarchical_forecasts,
             'cross_validation': validation_results,
+            'historical_data': steel_data,  # Include historical data
             'metadata': {
                 'generation_timestamp': datetime.now().isoformat(),
                 'forecast_period': f"{start_year}-{end_year}",
@@ -345,16 +349,39 @@ class DualTrackSteelForecastingSystem:
         
         self.logger.info(f"Exporting unified results to {output_dir}...")
         
-        # Export current model forecasts
+        # Export current model forecasts - forecast only version
         current_forecasts = unified_results['current_model_forecasts']
         current_filename = f"{output_dir}/current_model_forecasts_2025_2050.csv"
         current_forecasts.to_csv(current_filename, index=False)
         
-        # Export hierarchical forecasts
+        # Export current model forecasts with historical data (2004-2050)
+        if 'historical_data' in unified_results:
+            historical_data = unified_results['historical_data']
+            # Merge historical with forecasts
+            complete_current = pd.concat([
+                historical_data[historical_data['Year'] < 2025],
+                current_forecasts
+            ], ignore_index=True).sort_values('Year')
+            complete_filename = f"{output_dir}/current_model_forecasts_2004_2050.csv"
+            complete_current.to_csv(complete_filename, index=False)
+        
+        # Export hierarchical forecasts - forecast only versions
         hierarchical_forecasts = unified_results['hierarchical_forecasts']
         for level, forecast_df in hierarchical_forecasts.items():
             hierarchical_filename = f"{output_dir}/hierarchical_{level}_forecasts_2025_2050.csv"
             forecast_df.to_csv(hierarchical_filename, index=False)
+            
+            # Export with historical data if available
+            if 'historical_data' in unified_results:
+                # Merge with historical data for complete timeseries
+                hist_cols = set(historical_data.columns) & set(forecast_df.columns)
+                if len(hist_cols) > 1:  # More than just 'Year'
+                    complete_df = pd.concat([
+                        historical_data[historical_data['Year'] < 2025][list(hist_cols)],
+                        forecast_df[list(hist_cols)]
+                    ], ignore_index=True).sort_values('Year')
+                    complete_filename = f"{output_dir}/hierarchical_{level}_forecasts_2004_2050.csv"
+                    complete_df.to_csv(complete_filename, index=False)
         
         # Export cross-validation results
         validation_results = unified_results['cross_validation']

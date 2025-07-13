@@ -695,42 +695,42 @@ class TrackBSteelTaxonomyAnalyzer:
 
 ```mermaid
 graph TD
-    A["Total Steel Consumption<br/>{year_data.get('level_0', {}).get('total_steel_demand', 'N/A'):.0f} kt"] --> B1["SEMI_FINISHED<br/>{year_data.get('level_1', {}).get('SEMI_FINISHED', 'N/A'):.0f} kt"]
-    A --> B2["FINISHED_FLAT<br/>{year_data.get('level_1', {}).get('FINISHED_FLAT', 'N/A'):.0f} kt"]
-    A --> B3["FINISHED_LONG<br/>{year_data.get('level_1', {}).get('FINISHED_LONG', 'N/A'):.0f} kt"]
-    A --> B4["TUBE_PIPE<br/>{year_data.get('level_1', {}).get('TUBE_PIPE', 'N/A'):.0f} kt"]
+    A["Total Steel Consumption<br/>{year_data.get('level_0', {}).get('total_steel_demand', 0):.0f} kt"] --> B1["SEMI_FINISHED<br/>{year_data.get('level_1', {}).get('SEMI_FINISHED', 0):.0f} kt"]
+    A --> B2["FINISHED_FLAT<br/>{year_data.get('level_1', {}).get('FINISHED_FLAT', 0):.0f} kt"]
+    A --> B3["FINISHED_LONG<br/>{year_data.get('level_1', {}).get('FINISHED_LONG', 0):.0f} kt"]
+    A --> B4["TUBE_PIPE<br/>{year_data.get('level_1', {}).get('TUBE_PIPE', 0):.0f} kt"]
     
     %% Semi-finished products
-    B1 --> C1["BILLETS_COMMERCIAL<br/>{year_data.get('level_2', {}).get('BILLETS_COMMERCIAL', 'N/A'):.0f} kt"]
-    B1 --> C2["BILLETS_SBQ<br/>{year_data.get('level_2', {}).get('BILLETS_SBQ', 'N/A'):.0f} kt"]
-    B1 --> C3["SLABS_STANDARD<br/>{year_data.get('level_2', {}).get('SLABS_STANDARD', 'N/A'):.0f} kt"]
-    B1 --> C4["BILLETS_DEGASSED<br/>{year_data.get('level_2', {}).get('BILLETS_DEGASSED', 'N/A'):.0f} kt"]
-    B1 --> C5["SLABS_DEGASSED<br/>{year_data.get('level_2', {}).get('SLABS_DEGASSED', 'N/A'):.0f} kt"]
+    B1 --> C1["BILLETS_COMMERCIAL<br/>{year_data.get('level_2', {}).get('BILLETS_COMMERCIAL', 0):.0f} kt"]
+    B1 --> C2["BILLETS_SBQ<br/>{year_data.get('level_2', {}).get('BILLETS_SBQ', 0):.0f} kt"]
+    B1 --> C3["SLABS_STANDARD<br/>{year_data.get('level_2', {}).get('SLABS_STANDARD', 0):.0f} kt"]
+    B1 --> C4["BILLETS_DEGASSED<br/>{year_data.get('level_2', {}).get('BILLETS_DEGASSED', 0):.0f} kt"]
+    B1 --> C5["SLABS_DEGASSED<br/>{year_data.get('level_2', {}).get('SLABS_DEGASSED', 0):.0f} kt"]
     
     %% Finished flat products
-    B2 --> C6["HOT_ROLLED_COIL<br/>{year_data.get('level_2', {}).get('HOT_ROLLED_COIL', 'N/A'):.0f} kt"]
-    B2 --> C7["COLD_ROLLED_COIL<br/>{year_data.get('level_2', {}).get('COLD_ROLLED_COIL', 'N/A'):.0f} kt"]
-    B2 --> C8["PLATE<br/>{year_data.get('level_2', {}).get('PLATE', 'N/A'):.0f} kt"]
-    B2 --> C9["GALVANIZED<br/>{year_data.get('level_2', {}).get('GALVANIZED', 'N/A'):.0f} kt"]
+    B2 --> C6["HOT_ROLLED_COIL<br/>{year_data.get('level_2', {}).get('HOT_ROLLED_COIL', 0):.0f} kt"]
+    B2 --> C7["COLD_ROLLED_COIL<br/>{year_data.get('level_2', {}).get('COLD_ROLLED_COIL', 0):.0f} kt"]
+    B2 --> C8["PLATE<br/>{year_data.get('level_2', {}).get('PLATE', 0):.0f} kt"]
+    B2 --> C9["GALVANIZED<br/>{year_data.get('level_2', {}).get('GALVANIZED', 0):.0f} kt"]
     
     %% Finished long products (showing key categories)
-    B3 --> C10["STRUCTURAL_BEAMS<br/>{year_data.get('level_2', {}).get('STRUCTURAL_BEAMS', 'N/A'):.0f} kt"]
-    B3 --> C11["RAILS_STANDARD<br/>{year_data.get('level_2', {}).get('RAILS_STANDARD', 'N/A'):.0f} kt"]
-    B3 --> C12["REBAR<br/>{year_data.get('level_2', {}).get('REBAR', 'N/A'):.0f} kt"]
+    B3 --> C10["STRUCTURAL_BEAMS<br/>{year_data.get('level_2', {}).get('STRUCTURAL_BEAMS', 0):.0f} kt"]
+    B3 --> C11["RAILS_STANDARD<br/>{year_data.get('level_2', {}).get('RAILS_STANDARD', 0):.0f} kt"]
+    B3 --> C12["REBAR<br/>{year_data.get('level_2', {}).get('REBAR', 0):.0f} kt"]
     
     %% Tube and pipe products
-    B4 --> C13["SEAMLESS_LINE_PIPE<br/>{year_data.get('level_2', {}).get('SEAMLESS_LINE_PIPE', 'N/A'):.0f} kt"]
-    B4 --> C14["WELDED_LINE_PIPE<br/>{year_data.get('level_2', {}).get('WELDED_LINE_PIPE', 'N/A'):.0f} kt"]
+    B4 --> C13["SEAMLESS_LINE_PIPE<br/>{year_data.get('level_2', {}).get('SEAMLESS_LINE_PIPE', 0):.0f} kt"]
+    B4 --> C14["WELDED_LINE_PIPE<br/>{year_data.get('level_2', {}).get('WELDED_LINE_PIPE', 0):.0f} kt"]
     
     %% Level 3 examples (showing select categories)
-    C1 --> D1["BILLETS_COMM_LOW_CARBON<br/>{year_data.get('level_3', {}).get('BILLETS_COMM_LOW_CARBON', 'N/A'):.0f} kt"]
-    C1 --> D2["BILLETS_COMM_MEDIUM_CARBON<br/>{year_data.get('level_3', {}).get('BILLETS_COMM_MEDIUM_CARBON', 'N/A'):.0f} kt"]
+    C1 --> D1["BILLETS_COMM_LOW_CARBON<br/>{year_data.get('level_3', {}).get('BILLETS_COMM_LOW_CARBON', 0):.0f} kt"]
+    C1 --> D2["BILLETS_COMM_MEDIUM_CARBON<br/>{year_data.get('level_3', {}).get('BILLETS_COMM_MEDIUM_CARBON', 0):.0f} kt"]
     
-    C10 --> D3["UB_GRADE_300<br/>{year_data.get('level_3', {}).get('UB_GRADE_300', 'N/A'):.0f} kt"]
-    C10 --> D4["UB_GRADE_300_PLUS<br/>{year_data.get('level_3', {}).get('UB_GRADE_300_PLUS', 'N/A'):.0f} kt"]
+    C10 --> D3["UB_GRADE_300<br/>{year_data.get('level_3', {}).get('UB_GRADE_300', 0):.0f} kt"]
+    C10 --> D4["UB_GRADE_300_PLUS<br/>{year_data.get('level_3', {}).get('UB_GRADE_300_PLUS', 0):.0f} kt"]
     
-    C11 --> D5["RAILS_STD_FREIGHT<br/>{year_data.get('level_3', {}).get('RAILS_STD_FREIGHT', 'N/A'):.0f} kt"]
-    C11 --> D6["RAILS_STD_PASSENGER<br/>{year_data.get('level_3', {}).get('RAILS_STD_PASSENGER', 'N/A'):.0f} kt"]
+    C11 --> D5["RAILS_STD_FREIGHT<br/>{year_data.get('level_3', {}).get('RAILS_STD_FREIGHT', 0):.0f} kt"]
+    C11 --> D6["RAILS_STD_PASSENGER<br/>{year_data.get('level_3', {}).get('RAILS_STD_PASSENGER', 0):.0f} kt"]
     
     %% Styling
     classDef level0 fill:#2E4057,stroke:#1A252F,stroke-width:3px,color:#FFFFFF;
@@ -747,13 +747,13 @@ graph TD
 ## Track B Hierarchy Summary for {year}
 
 ### Level 0: Total Steel Consumption
-- **Total Demand**: {year_data.get('level_0', {}).get('total_steel_demand', 'N/A')} kt (apparent steel use, crude steel equivalent)
+- **Total Demand**: {year_data.get('level_0', {}).get('total_steel_demand', 0):.0f} kt (apparent steel use, crude steel equivalent)
 
 ### Level 1: Major Product Categories
-- **Semi-finished Products**: {year_data.get('level_1', {}).get('SEMI_FINISHED', 'N/A')} kt ({(year_data.get('level_1', {}).get('SEMI_FINISHED', 0) / year_data.get('level_0', {}).get('total_steel_demand', 1) * 100):.1f}%)
-- **Finished Flat Products**: {year_data.get('level_1', {}).get('FINISHED_FLAT', 'N/A')} kt ({(year_data.get('level_1', {}).get('FINISHED_FLAT', 0) / year_data.get('level_0', {}).get('total_steel_demand', 1) * 100):.1f}%)
-- **Finished Long Products**: {year_data.get('level_1', {}).get('FINISHED_LONG', 'N/A')} kt ({(year_data.get('level_1', {}).get('FINISHED_LONG', 0) / year_data.get('level_0', {}).get('total_steel_demand', 1) * 100):.1f}%)
-- **Tube and Pipe Products**: {year_data.get('level_1', {}).get('TUBE_PIPE', 'N/A')} kt ({(year_data.get('level_1', {}).get('TUBE_PIPE', 0) / year_data.get('level_0', {}).get('total_steel_demand', 1) * 100):.1f}%)
+- **Semi-finished Products**: {year_data.get('level_1', {}).get('SEMI_FINISHED', 0):.0f} kt ({(year_data.get('level_1', {}).get('SEMI_FINISHED', 0) / year_data.get('level_0', {}).get('total_steel_demand', 1) * 100):.1f}%)
+- **Finished Flat Products**: {year_data.get('level_1', {}).get('FINISHED_FLAT', 0):.0f} kt ({(year_data.get('level_1', {}).get('FINISHED_FLAT', 0) / year_data.get('level_0', {}).get('total_steel_demand', 1) * 100):.1f}%)
+- **Finished Long Products**: {year_data.get('level_1', {}).get('FINISHED_LONG', 0):.0f} kt ({(year_data.get('level_1', {}).get('FINISHED_LONG', 0) / year_data.get('level_0', {}).get('total_steel_demand', 1) * 100):.1f}%)
+- **Tube and Pipe Products**: {year_data.get('level_1', {}).get('TUBE_PIPE', 0):.0f} kt ({(year_data.get('level_1', {}).get('TUBE_PIPE', 0) / year_data.get('level_0', {}).get('total_steel_demand', 1) * 100):.1f}%)
 
 ### Key Product Families (Level 2)
 Top 5 largest product families by volume:"""
@@ -770,9 +770,9 @@ Top 5 largest product families by volume:"""
         mermaid_content += f"""
 
 ### Specialized Applications (Level 3 - Selected Examples)
-- **Commercial Billets**: Low carbon ({year_data.get('level_3', {}).get('BILLETS_COMM_LOW_CARBON', 'N/A'):.0f} kt), Medium carbon ({year_data.get('level_3', {}).get('BILLETS_COMM_MEDIUM_CARBON', 'N/A'):.0f} kt)
-- **Structural Beams**: Grade 300 ({year_data.get('level_3', {}).get('UB_GRADE_300', 'N/A'):.0f} kt), Grade 300+ ({year_data.get('level_3', {}).get('UB_GRADE_300_PLUS', 'N/A'):.0f} kt)
-- **Railway Products**: Freight rails ({year_data.get('level_3', {}).get('RAILS_STD_FREIGHT', 'N/A'):.0f} kt), Passenger rails ({year_data.get('level_3', {}).get('RAILS_STD_PASSENGER', 'N/A'):.0f} kt)
+- **Commercial Billets**: Low carbon ({year_data.get('level_3', {}).get('BILLETS_COMM_LOW_CARBON', 0):.0f} kt), Medium carbon ({year_data.get('level_3', {}).get('BILLETS_COMM_MEDIUM_CARBON', 0):.0f} kt)
+- **Structural Beams**: Grade 300 ({year_data.get('level_3', {}).get('UB_GRADE_300', 0):.0f} kt), Grade 300+ ({year_data.get('level_3', {}).get('UB_GRADE_300_PLUS', 0):.0f} kt)
+- **Railway Products**: Freight rails ({year_data.get('level_3', {}).get('RAILS_STD_FREIGHT', 0):.0f} kt), Passenger rails ({year_data.get('level_3', {}).get('RAILS_STD_PASSENGER', 0):.0f} kt)
 
 ---
 *Generated by Track B Steel Taxonomy Analyzer*

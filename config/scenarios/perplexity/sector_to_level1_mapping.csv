@@ -1,0 +1,21 @@
+sector,level_1_code,share,description
+construction,FINISHED_LONG,0.65,Perplexity: Structural beams/columns global pattern
+construction,FINISHED_FLAT,0.20,Perplexity: Plate roofing cladding
+construction,SEMI_FINISHED,0.08,Perplexity: Local fabrication - Low confidence
+construction,TUBE_PIPE,0.07,Perplexity: Structural hollow sections
+infrastructure_traditional,FINISHED_LONG,0.55,Perplexity: Rail bridges heavy structures
+infrastructure_traditional,TUBE_PIPE,0.25,Perplexity: Pipelines utilities
+infrastructure_traditional,FINISHED_FLAT,0.12,Perplexity: Marine heavy infrastructure - Low confidence
+infrastructure_traditional,SEMI_FINISHED,0.08,Perplexity: Local processing - Low confidence
+manufacturing,SEMI_FINISHED,0.55,Perplexity: Industrial processing post-auto
+manufacturing,FINISHED_FLAT,0.30,Perplexity: White goods appliances
+manufacturing,FINISHED_LONG,0.12,Perplexity: Machinery equipment
+manufacturing,TUBE_PIPE,0.03,Perplexity: Specialized tubing - Low confidence
+renewable_energy,FINISHED_FLAT,0.45,Perplexity: Wind turbine towers - High confidence
+renewable_energy,FINISHED_LONG,0.40,Perplexity: Solar mounting grid structures - High confidence
+renewable_energy,SEMI_FINISHED,0.10,Perplexity: Local renewable fabrication - Low confidence
+renewable_energy,TUBE_PIPE,0.05,Perplexity: Grid infrastructure - Low confidence
+other_sectors,SEMI_FINISHED,0.40,Perplexity: Mining equipment - Low confidence
+other_sectors,FINISHED_LONG,0.35,Perplexity: Agricultural/transport machinery - Low confidence
+other_sectors,FINISHED_FLAT,0.15,Perplexity: Mining/transport plate - Low confidence
+other_sectors,TUBE_PIPE,0.10,Perplexity: Mining/agricultural tubing - Low confidence

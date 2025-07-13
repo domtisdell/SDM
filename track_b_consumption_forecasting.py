@@ -19,6 +19,38 @@ sys.path.append('.')
 from forecasting.dual_track_forecasting import DualTrackSteelForecastingSystem
 from validation.comprehensive_validation import ComprehensiveValidationFramework
 
+def _generate_pdf_reports(output_dir: str) -> None:
+    """Generate PDF reports from markdown files."""
+    import subprocess
+    from pathlib import Path
+    
+    # Create pdf_reports directory
+    pdf_dir = Path(output_dir) / "pdf_reports"
+    pdf_dir.mkdir(exist_ok=True)
+    
+    # Find all markdown files in the output directory
+    md_files = list(Path(output_dir).rglob("*.md"))
+    
+    if md_files:
+        # Call the PDF converter script
+        cmd = [
+            sys.executable,
+            "convert_md_to_pdf_final.py",
+            str(output_dir),
+            str(pdf_dir)
+        ]
+        
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True)
+            if result.returncode == 0:
+                print(f"PDF reports generated successfully in {pdf_dir}")
+            else:
+                print(f"Error generating PDFs: {result.stderr}")
+        except Exception as e:
+            print(f"Failed to generate PDFs: {e}")
+    else:
+        print("No markdown files found to convert to PDF")
+
 def setup_logging(log_level="INFO"):
     """Setup comprehensive logging for the forecasting system."""
     
@@ -146,7 +178,7 @@ def main():
                 logger.error(f"Error creating Track B visualizations: {str(e)}")
             
             # Generate Track B hierarchy diagrams for multiple years
-            logger.info("Generating Track B hierarchy diagrams for years 2025, 2035, 2050...")
+            logger.info("Generating Track B hierarchy diagrams for years 2015, 2020, 2025, 2035, 2050...")
             try:
                 from visualization.hierarchy_diagram_generator import HierarchyDiagramGenerator
                 
@@ -156,8 +188,8 @@ def main():
                     output_dir=f"{args.output_dir}/hierarchy_diagrams"
                 )
                 
-                # Generate diagrams for multiple years
-                generated_files = diagram_generator.generate_all_years([2025, 2035, 2050])
+                # Generate diagrams for multiple years (including historical snapshots)
+                generated_files = diagram_generator.generate_all_years([2015, 2020, 2025, 2035, 2050])
                 
                 # Create index file
                 index_file = diagram_generator.create_index_file(generated_files)
@@ -185,7 +217,7 @@ def main():
                 taxonomy_results = taxonomy_analyzer.analyze_track_b_forecasts(
                     forecast_data_dir=args.output_dir,
                     output_dir=f"{args.output_dir}/track_b_taxonomy_analysis",
-                    sample_years=[2025, 2035, 2050]
+                    sample_years=[2015, 2020, 2025, 2035, 2050]
                 )
                 
                 logger.info("🏗️ Track B Steel Taxonomy Analysis completed successfully!")
@@ -282,89 +314,14 @@ def main():
         summary_df = pd.DataFrame.from_dict(summary_data, orient='index', columns=['value'])
         summary_df.to_csv(f"{args.output_dir}/executive_summary.csv")
         
-        # Copy key results to project-level outputs directory for Track B
-        logger.info("Copying key results to outputs/track_b...")
-        import shutil
-        from pathlib import Path
-        
-        outputs_dir = Path("outputs")
-        outputs_dir.mkdir(exist_ok=True)
-        
-        # Create track_b subdirectory in outputs
-        track_b_outputs = outputs_dir / "track_b"
-        track_b_outputs.mkdir(exist_ok=True)
-        
-        # Define all the files to copy from Track B
-        key_files = [
-            "current_model_forecasts_2025_2050.csv",
-            "hierarchical_level_0_forecasts_2025_2050.csv",
-            "hierarchical_level_1_forecasts_2025_2050.csv", 
-            "hierarchical_level_2_forecasts_2025_2050.csv",
-            "hierarchical_level_3_forecasts_2025_2050.csv",
-            "unified_forecasting_summary.csv",
-            "cross_validation_results.csv",
-            "forecasting_metadata.csv",
-            "client_insights_analysis.csv",
-            "comprehensive_validation_report.csv"
-        ]
-        
-        # Copy detailed files if they exist (when --export-detailed is used)
-        detailed_files = [
-            "detailed_level_0_forecasts.csv",
-            "detailed_level_1_forecasts.csv",
-            "detailed_level_2_forecasts.csv", 
-            "detailed_level_3_forecasts.csv",
-            "detailed_cross_validation.csv",
-            "renewable_energy_analysis.csv",
-            "executive_summary.csv"
-        ]
-        
-        # Copy key files
-        for file in key_files:
-            source = Path(args.output_dir) / file
-            if source.exists():
-                shutil.copy2(source, track_b_outputs / file)
-                logger.info(f"Copied {file} to outputs/track_b/")
-        
-        # Copy detailed files if they exist
-        for file in detailed_files:
-            source = Path(args.output_dir) / file
-            if source.exists():
-                shutil.copy2(source, track_b_outputs / file)
-                logger.info(f"Copied {file} to outputs/track_b/")
-        
-        # Copy visualizations directory
-        source_viz = Path(args.output_dir) / "visualizations"
-        target_viz = track_b_outputs / "visualizations"
-        if source_viz.exists():
-            if target_viz.exists():
-                shutil.rmtree(target_viz)
-            shutil.copytree(source_viz, target_viz)
-            logger.info("Copied visualizations to outputs/track_b/visualizations/")
-        
-        # Copy hierarchy diagrams directory 
-        source_hierarchy = Path(args.output_dir) / "hierarchy_diagrams"
-        target_hierarchy = track_b_outputs / "hierarchy_diagrams"
-        if source_hierarchy.exists():
-            if target_hierarchy.exists():
-                shutil.rmtree(target_hierarchy)
-            shutil.copytree(source_hierarchy, target_hierarchy)
-            logger.info("Copied hierarchy diagrams to outputs/track_b/hierarchy_diagrams/")
-        
-        # Copy Track B taxonomy analysis directory
-        source_taxonomy = Path(args.output_dir) / "track_b_taxonomy_analysis"
-        target_taxonomy = track_b_outputs / "track_b_taxonomy_analysis"
-        if source_taxonomy.exists():
-            if target_taxonomy.exists():
-                shutil.rmtree(target_taxonomy)
-            shutil.copytree(source_taxonomy, target_taxonomy)
-            logger.info("Copied Track B taxonomy analysis to outputs/track_b/track_b_taxonomy_analysis/")
+        # Generate PDF reports from markdown files
+        logger.info("Generating PDF reports from markdown files...")
+        _generate_pdf_reports(args.output_dir)
         
         logger.info("="*80)
         logger.info("FORECASTING SYSTEM EXECUTION COMPLETED SUCCESSFULLY")
         logger.info("="*80)
-        logger.info(f"Results exported to: {args.output_dir}")
-        logger.info(f"Key results also available in {track_b_outputs}")
+        logger.info(f"All results saved to: {args.output_dir}")
         logger.info(f"Log file: logs/hierarchical_forecasting_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
         
         if not args.validate_only and 'validation_summary' in validation_report:

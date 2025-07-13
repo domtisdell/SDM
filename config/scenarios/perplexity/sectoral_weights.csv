@@ -1,0 +1,4 @@
+period,gdp_construction,infrastructure_traditional,manufacturing_ip,wm_renewable_energy,other_sectors,description
+2025-2030,0.330,0.220,0.280,0.040,0.130,Perplexity weights: Construction 33% Infrastructure 22% Manufacturing 28% Renewable 4% Other 13%
+2031-2040,0.326,0.218,0.276,0.055,0.125,Mid-term with renewable energy growth trajectory
+2041-2050,0.320,0.215,0.270,0.075,0.120,Long-term renewable expansion with Perplexity baseline

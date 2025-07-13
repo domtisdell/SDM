@@ -572,10 +572,41 @@ class TrackA2CascadeForecaster:
         forecast_wide = combined_df.pivot(index='Year', columns='Category', values='Forecast')
         forecast_wide.reset_index(inplace=True)
         
-        # Save main forecast file
+        # Also create version with historical data (2004-2050)
+        if self.historical_data is not None:
+            # Get historical years
+            hist_years = self.historical_data['Year'].values
+            
+            # Create complete dataframe with historical + forecast
+            complete_data = []
+            
+            # Add historical data (2004-2023)
+            for year in hist_years:
+                year_data = {'Year': year}
+                for col in forecast_wide.columns:
+                    if col != 'Year' and col in self.historical_data.columns:
+                        year_data[col] = self.historical_data[self.historical_data['Year'] == year][col].iloc[0]
+                if year_data:
+                    complete_data.append(year_data)
+            
+            # Add forecast data (2024-2050)
+            for _, row in forecast_wide.iterrows():
+                if row['Year'] >= 2024:
+                    complete_data.append(row.to_dict())
+            
+            # Create complete dataframe
+            complete_df = pd.DataFrame(complete_data)
+            complete_df = complete_df.sort_values('Year').reset_index(drop=True)
+            
+            # Save complete file (2004-2050)
+            complete_file = self.output_dir / 'Track_A2_Cascade_Forecasts_2004-2050.csv'
+            complete_df.to_csv(complete_file, index=False)
+            self.logger.info(f"📊 Complete forecasts with history saved: {complete_file}")
+        
+        # Save forecast-only file for compatibility
         forecast_file = self.output_dir / 'Track_A2_Cascade_Forecasts_2025-2050.csv'
         forecast_wide.to_csv(forecast_file, index=False)
-        self.logger.info(f"📊 Main forecasts saved: {forecast_file}")
+        self.logger.info(f"📊 Forecast-only file saved: {forecast_file}")
         
         # Save performance comparison
         self._save_performance_comparison()
@@ -586,10 +617,10 @@ class TrackA2CascadeForecaster:
         # Generate WSA taxonomy analysis for Track A2
         self._generate_track_a2_wsa_analysis()
         
-        # Copy key results to project-level outputs directory
-        self._copy_results_to_outputs()
-        
         self.logger.info(f"📁 All Track A2 results saved to: {self.output_dir}")
+        
+        # Generate PDF reports
+        self._generate_pdf_reports()
     
     def _save_performance_comparison(self) -> None:
         """Save performance comparison across levels."""
@@ -658,15 +689,19 @@ class TrackA2CascadeForecaster:
         try:
             from analysis.wsa_steel_taxonomy import WSASteelTaxonomyAnalyzer
             
+            # Try to use the complete file first, fall back to forecast-only if needed
+            complete_file = self.output_dir / 'Track_A2_Cascade_Forecasts_2004-2050.csv'
             forecast_file = self.output_dir / 'Track_A2_Cascade_Forecasts_2025-2050.csv'
             
-            if forecast_file.exists():
+            file_to_use = complete_file if complete_file.exists() else forecast_file
+            
+            if file_to_use.exists():
                 wsa_output_dir = self.output_dir / 'track_a2_wsa_analysis'
                 wsa_output_dir.mkdir(exist_ok=True)
                 
                 analyzer = WSASteelTaxonomyAnalyzer()
                 generated_files = analyzer.generate_complete_wsa_analysis(
-                    track_a_forecast_file=str(forecast_file),
+                    track_a_forecast_file=str(file_to_use),
                     output_directory=str(wsa_output_dir)
                 )
                 
@@ -675,45 +710,42 @@ class TrackA2CascadeForecaster:
         except Exception as e:
             self.logger.error(f"❌ WSA analysis error: {str(e)}")
     
-    def _copy_results_to_outputs(self) -> None:
-        """Copy key Track A2 results to project-level outputs directory."""
-        import shutil
-        from pathlib import Path
+    def _generate_pdf_reports(self) -> None:
+        """Generate PDF reports from markdown files."""
+        self.logger.info("📄 Generating PDF reports...")
         
-        outputs_dir = Path("outputs")
-        outputs_dir.mkdir(exist_ok=True)
-        
-        # Create track_a2 subdirectory in outputs
-        track_a2_outputs = outputs_dir / "track_a2"
-        track_a2_outputs.mkdir(exist_ok=True)
-        
-        # Key files to copy
-        key_files = [
-            "Track_A2_Cascade_Forecasts_2025-2050.csv",
-            "Track_A2_Performance_by_Level.csv", 
-            "Track_A2_Constraint_Validation.csv"
-        ]
-        
-        self.logger.info(f"📁 Copying key Track A2 results to {track_a2_outputs}...")
-        for file in key_files:
-            source = self.output_dir / file
-            if source.exists():
-                shutil.copy2(source, track_a2_outputs / file)
-                self.logger.info(f"📋 Copied {file} to outputs/track_a2/")
-        
-        # Copy WSA Steel Taxonomy Analysis directory
-        source_wsa = self.output_dir / "track_a2_wsa_analysis"
-        target_wsa = track_a2_outputs / "track_a2_wsa_analysis"
-        if source_wsa.exists():
-            if target_wsa.exists():
-                shutil.rmtree(target_wsa)
-            shutil.copytree(source_wsa, target_wsa)
-            self.logger.info(f"📊 Copied WSA Steel Taxonomy Analysis to outputs/track_a2/track_a2_wsa_analysis/")
-        
-        # Create summary comparison file
-        self._create_track_comparison_summary(track_a2_outputs)
-        
-        self.logger.info(f"✅ Key Track A2 results also available in {track_a2_outputs}")
+        try:
+            # Check if convert_md_to_pdf_final.py exists
+            pdf_converter_path = Path("convert_md_to_pdf_final.py")
+            if not pdf_converter_path.exists():
+                self.logger.warning("PDF converter script not found, skipping PDF generation")
+                return
+            
+            # Find all markdown files in the forecast directory and subdirectories
+            all_md_files = list(self.output_dir.rglob("*.md"))
+            
+            if all_md_files:
+                self.logger.info(f"Found {len(all_md_files)} markdown files in {self.output_dir}")
+                
+                # Create single pdf output directory within the forecast run folder
+                pdf_output_dir = self.output_dir / "pdf_reports"
+                pdf_output_dir.mkdir(exist_ok=True)
+                
+                # Use the final converter which supports mermaid diagrams
+                import subprocess
+                result = subprocess.run(
+                    ["python3", "convert_md_to_pdf_final.py", str(self.output_dir), str(pdf_output_dir)],
+                    capture_output=True,
+                    text=True
+                )
+                
+                if result.returncode == 0:
+                    self.logger.info(f"✅ PDF reports generated successfully in {pdf_output_dir}")
+                else:
+                    self.logger.error(f"❌ PDF generation failed: {result.stderr}")
+                    
+        except Exception as e:
+            self.logger.error(f"❌ Error generating PDF reports: {str(e)}")
     
     def _create_track_comparison_summary(self, output_dir: Path) -> None:
         """Create a summary comparing Track A2 with Track A approaches."""
@@ -745,10 +777,11 @@ class TrackA2CascadeForecaster:
 - **Constraint Violations**: 0 (perfect compliance)
 
 ## Files Generated
-- `Track_A2_Cascade_Forecasts_2025-2050.csv` - Main forecasting results
+- `Track_A2_Cascade_Forecasts_2004-2050.csv` - Complete timeseries with historical data
+- `Track_A2_Cascade_Forecasts_2025-2050.csv` - Forecast-only results
 - `Track_A2_Performance_by_Level.csv` - Performance metrics by hierarchy level
 - `Track_A2_Constraint_Validation.csv` - Yield factor compliance validation
-- `track_a2_wsa_analysis/` - Complete WSA taxonomy analysis (25 files)
+- `track_a2_wsa_analysis/` - Complete WSA taxonomy analysis (25+ files with 2015, 2020 snapshots)
 
 ## Key Differences from Track A
 | Feature | Track A | Track A2 |
@@ -793,7 +826,8 @@ def main():
     print("✅ Track A2 Cascade Forecasting completed!")
     print("🏗️ Results include WSA taxonomy analysis with enforced yield losses")
     print("🔒 All hierarchical constraints validated and enforced")
-    print("📊 Check forecasts/track_a2_cascade_*/ directory for results")
+    print("📄 PDF reports automatically generated from all markdown files with rendered mermaid diagrams")
+    print("📊 Check forecasts/track_a2_cascade_*/ directory for all results")
     print("=" * 70)
 
 if __name__ == "__main__":

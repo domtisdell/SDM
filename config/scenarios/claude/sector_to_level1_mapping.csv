@@ -1,0 +1,21 @@
+sector,level_1_code,share,description
+construction,FINISHED_LONG,0.62,Claude: Updated from 65% based on 2024 Australian Steel Institute data
+construction,FINISHED_FLAT,0.28,Claude: Increased from 20% due to residential cladding/framing demand
+construction,SEMI_FINISHED,0.06,Claude: Reduced from 8% based on ASI industry data
+construction,TUBE_PIPE,0.08,Claude: Slightly increased for fire pipe and structural applications
+infrastructure_traditional,FINISHED_LONG,0.37,Claude: Reduced from 40% based on Infrastructure Australia analysis
+infrastructure_traditional,TUBE_PIPE,0.35,Claude: Maintained at 35% confirmed by Australian Pipelines and Gas Association
+infrastructure_traditional,FINISHED_FLAT,0.18,Claude: Increased from 15% for plate steel in major projects
+infrastructure_traditional,SEMI_FINISHED,0.10,Claude: Maintained at 10% industry estimate
+manufacturing,FINISHED_LONG,0.47,Claude: Major shift - structural/fabricated products post-automotive
+manufacturing,FINISHED_FLAT,0.33,Claude: Non-automotive applications only
+manufacturing,TUBE_PIPE,0.17,Claude: Smaller scale applications
+manufacturing,SEMI_FINISHED,0.03,Claude: Specialty products - major reduction from 55%
+renewable_energy,FINISHED_LONG,0.63,Claude: Increased from 40% - towers and mounting systems
+renewable_energy,FINISHED_FLAT,0.27,Claude: Reduced from 45% - specialized components
+renewable_energy,TUBE_PIPE,0.12,Claude: Increased from 5% - reinforcement and cables
+renewable_energy,SEMI_FINISHED,0.08,Claude: Reduced from 10% - minimal usage
+other_sectors,FINISHED_LONG,0.40,Claude: Maintained - mining/agricultural focus
+other_sectors,SEMI_FINISHED,0.30,Claude: Reduced from 40% - more finished imports
+other_sectors,FINISHED_FLAT,0.20,Claude: Increased from 15% - wear plate for mining
+other_sectors,TUBE_PIPE,0.10,Claude: Maintained - specialized tubing

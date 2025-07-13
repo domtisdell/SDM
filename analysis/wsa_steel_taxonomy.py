@@ -659,11 +659,11 @@ class WSASteelTaxonomyAnalyzer:
         return viz_files
     
     def generate_wsa_hierarchy_mermaid_charts(self, taxonomy_mapping: Dict[str, Any], output_dir: Path) -> Dict[str, str]:
-        """Generate 5 WSA hierarchy mermaid charts for each year (2025, 2035, 2050) based on official WSA diagrams."""
-        self.logger.info("Generating 5 WSA hierarchy mermaid charts for 2025, 2035, and 2050...")
+        """Generate 5 WSA hierarchy mermaid charts for each year (2015, 2020, 2025, 2035, 2050) based on official WSA diagrams."""
+        self.logger.info("Generating 5 WSA hierarchy mermaid charts for 2015, 2020, 2025, 2035, and 2050...")
         
         mermaid_files = {}
-        target_years = [2025, 2035, 2050]
+        target_years = [2015, 2020, 2025, 2035, 2050]
         
         # Define the 5 official WSA diagrams
         wsa_diagrams = [
@@ -776,7 +776,7 @@ graph TD
     G[Production of Hot Rolled Flat Products<br/>Level 4<br/>{flat_products:.0f} kt]
     H[Production of Hot Rolled Long Products<br/>Level 4<br/>{long_products:.0f} kt]
     
-    I[Production of Hot Rolled Coil, Sheet, and Strip (&lt;3mm)<br/>Level 5<br/>{volumes.get('Production of Hot Rolled Coil, Sheet, and Strip (<3mm)', 0):.0f} kt]
+    I[Production of Hot Rolled Coil, Sheet, and Strip - less than 3mm<br/>Level 5<br/>{volumes.get('Production of Hot Rolled Coil, Sheet, and Strip (<3mm)', 0):.0f} kt]
     J[Production of Non-metallic Coated Sheet and Strip<br/>Level 5<br/>{volumes.get('Production of Non-metallic Coated Sheet and Strip', 0):.0f} kt]
     K[Production of Other Metal Coated Sheet and Strip<br/>Level 5<br/>{volumes.get('Production of Other Metal Coated Sheet and Strip', 0):.0f} kt]
     

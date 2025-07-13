@@ -20,17 +20,33 @@ class HierarchicalProductFeatures:
         Initialize hierarchical product feature engineering.
         
         Args:
-            config_path: Path to configuration directory
+            config_path: Path to configuration directory (can be scenario-specific)
         """
         self.config_path = config_path
         self.logger = self._setup_logging()
         
-        # Load configuration files
-        self.level_1_config = pd.read_csv(f"{config_path}/level_1_categories.csv")
-        self.level_2_config = pd.read_csv(f"{config_path}/level_2_products.csv")
-        self.level_3_config = pd.read_csv(f"{config_path}/level_3_specifications.csv")
-        self.sector_mapping = pd.read_csv(f"{config_path}/sector_to_level1_mapping.csv")
+        # Load configuration files - with fallback to base config for missing files
+        base_config_path = "config/"
+        
+        # Required files
         self.sectoral_weights = pd.read_csv(f"{config_path}/sectoral_weights.csv")
+        self.sector_mapping = pd.read_csv(f"{config_path}/sector_to_level1_mapping.csv")
+        
+        # Optional files with fallbacks
+        try:
+            self.level_2_config = pd.read_csv(f"{config_path}/level_2_products.csv")
+        except FileNotFoundError:
+            self.level_2_config = pd.read_csv(f"{base_config_path}/level_2_products.csv")
+            self.logger.info(f"Using baseline level_2_products.csv (not found in {config_path})")
+        
+        try:
+            self.level_3_config = pd.read_csv(f"{config_path}/level_3_specifications.csv")
+        except FileNotFoundError:
+            self.level_3_config = pd.read_csv(f"{base_config_path}/level_3_specifications.csv")
+            self.logger.info(f"Using baseline level_3_specifications.csv (not found in {config_path})")
+        
+        # Always use base config for level 1 categories (these don't change between scenarios)
+        self.level_1_config = pd.read_csv(f"{base_config_path}/level_1_categories.csv")
         
     def _setup_logging(self) -> logging.Logger:
         """Setup logging configuration."""

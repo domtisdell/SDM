@@ -1,0 +1,8 @@
+end_use_sector,sector_code,description,growth_driver,elasticity_gdp,elasticity_population
+construction_infrastructure,CONSTR_INFRA,Construction and Infrastructure,infrastructure_pipeline,1.4,1.2
+automotive,AUTO,Automotive Industry,vehicle_production,1.8,0.8
+mechanical_equipment,MECH_EQUIP,Mechanical Equipment,manufacturing_pmi,1.6,0.6
+electrical_equipment,ELEC_EQUIP,Electrical Equipment,energy_infrastructure,1.3,0.9
+domestic_appliances,DOM_APPL,Domestic Appliances,consumer_spending,1.5,1.1
+metal_products,METAL_PROD,Metal Products,manufacturing_activity,1.4,0.7
+transport_other,TRANS_OTHER,Other Transport,infrastructure_investment,1.2,0.8

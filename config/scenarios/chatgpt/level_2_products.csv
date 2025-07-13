@@ -1,0 +1,19 @@
+level_1_code,level_2_code,level_2_name,share_of_level_1,client_product,description
+SEMI_FINISHED,BILLETS_COMMERCIAL,Commercial Low and Medium Carbon Billets,0.50,yes,ChatGPT: Input for rebar and merchant bar - Medium confidence
+SEMI_FINISHED,BILLETS_SBQ,Special Bar Quality Billets,0.25,yes,ChatGPT: High-strength components mining/ag - Medium confidence
+SEMI_FINISHED,SLABS_STANDARD,Standard Slabs,0.20,yes,ChatGPT: Primary input for hot-rolled coil - Medium confidence
+SEMI_FINISHED,BILLETS_DEGASSED,Degassed Commercial Billets,0.03,yes,ChatGPT: Very niche high-end applications - Low confidence
+SEMI_FINISHED,SLABS_DEGASSED,Degassed Slabs,0.02,yes,ChatGPT: Formerly for automotive exteriors - Low confidence
+FINISHED_LONG,REBAR,Reinforcing Bar,0.30,no,ChatGPT: Increased from 25% reflecting infrastructure activity
+FINISHED_LONG,STRUCTURAL_BEAMS,Universal Beams,0.25,yes,ChatGPT: Standard UB product demand - Medium confidence
+FINISHED_LONG,STRUCTURAL_COLUMNS,Universal Columns,0.15,yes,ChatGPT: Standard UC product demand - Medium confidence
+FINISHED_LONG,RAILS_STANDARD,Plain Carbon Rails,0.08,yes,ChatGPT: Increased +2% infrastructure projects
+FINISHED_LONG,OTHER_LONG_PRODUCTS,Other Long Products,0.22,yes,ChatGPT: Adjusted for rebar/rail increases - Low confidence
+FINISHED_FLAT,HOT_ROLLED_COIL,Hot Rolled Coil,0.40,no,ChatGPT: Workhorse flat product - Medium confidence
+FINISHED_FLAT,COLD_ROLLED_COIL,Cold Rolled Coil,0.25,no,ChatGPT: White goods appearance-critical - Medium confidence
+FINISHED_FLAT,PLATE,Steel Plate,0.20,no,ChatGPT: Infrastructure defence mining - Medium confidence
+FINISHED_FLAT,GALVANIZED,Galvanized Products,0.15,no,ChatGPT: Construction/agriculture fencing - Medium confidence
+TUBE_PIPE,WELDED_STRUCTURAL,Welded Structural Hollow Sections,0.30,no,ChatGPT: RHS/CHS building frames - Medium confidence
+TUBE_PIPE,SEAMLESS_LINE_PIPE,Seamless Line Pipe,0.25,no,ChatGPT: High-pressure oil/gas - Medium confidence
+TUBE_PIPE,WELDED_LINE_PIPE,Welded Line Pipe,0.20,no,ChatGPT: Water lower-pressure systems - Medium confidence
+TUBE_PIPE,OTHER_TUBE_PIPE,Other Tube/Pipe,0.25,no,ChatGPT: Specialized uses catch-all - Low confidence

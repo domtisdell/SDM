@@ -1,0 +1,54 @@
+category,category_code,target_column,category_type,base_weight,elasticity_gdp,elasticity_population,min_forecast_value,max_forecast_value,regional_sensitivity
+# RAW MATERIALS & PRIMARY PROCESSING (WSA Levels 0-1)
+Production of Iron Ore,IRON_ORE,Production of Iron Ore,production,0.08,1.2,1.4,200000000,300000000,medium
+Production of Pig Iron,PIG_IRON,Production of Pig Iron,production,0.06,1.3,1.5,3000000,8000000,medium
+# CRUDE STEEL PRODUCTION (WSA Level 2)
+Total Production of Crude Steel,CRUDE_STEEL,Total Production of Crude Steel,production,0.25,1.5,1.8,5000000,15000000,medium
+Production of Crude Steel in Electric Furnaces,EAF_STEEL,Production of Crude Steel in Electric Furnaces,production,0.12,1.4,1.6,1000000,6000000,medium
+Production of Crude Steel in Oxygen-blown Converters,BOF_STEEL,Production of Crude Steel in Oxygen-blown Converters,production,0.13,1.6,1.9,2000000,10000000,medium
+# SEMI-FINISHED PRODUCTS (WSA Level 3)
+Production of Ingots,INGOTS,Production of Ingots,production,0.03,1.2,1.4,50000,1000000,low
+Production of Continuously-cast Steel,CONTINUOUS_CAST,Production of Continuously-cast Steel,production,0.22,1.5,1.8,4000000,14000000,medium
+# HOT ROLLED PRODUCTS (WSA Level 4)
+Production of Hot Rolled Products,HOT_ROLLED_TOTAL,Production of Hot Rolled Products,production,0.35,1.5,1.8,3000000,12000000,medium
+Production of Hot Rolled Flat Products,FLAT_PRODUCTS,Production of Hot Rolled Flat Products,production,0.20,1.6,1.9,2000000,8000000,medium
+Production of Hot Rolled Long Products,LONG_PRODUCTS,Production of Hot Rolled Long Products,production,0.15,1.4,1.7,1000000,4000000,medium
+# SPECIALIZED PRODUCTS (WSA Level 5)
+"Production of Hot Rolled Coil, Sheet, and Strip (<3mm)",HOT_ROLLED_COIL,"Production of Hot Rolled Coil, Sheet, and Strip (<3mm)",production,0.12,1.5,1.7,500000,3000000,medium
+Production of Non-metallic Coated Sheet and Strip,NON_METALLIC_COATED,Production of Non-metallic Coated Sheet and Strip,production,0.04,1.6,1.8,10000,500000,low
+Production of Other Metal Coated Sheet and Strip,METAL_COATED,Production of Other Metal Coated Sheet and Strip,production,0.04,1.6,1.8,10000,800000,low
+Production of Wire Rod,WIRE_ROD,Production of Wire Rod,production,0.06,1.3,1.5,100000,800000,medium
+Production of Railway Track Material,RAILWAY_TRACK,Production of Railway Track Material,production,0.05,1.2,1.5,10000,500000,low
+# TUBULAR PRODUCTS (WSA Parallel Branch)
+Total Production of Tubular Products,TUBULAR_PRODUCTS,Total Production of Tubular Products,production,0.08,1.4,1.6,50000,1000000,medium
+# CONSUMPTION METRICS (WSA Steel Use Measures)
+True Steel Use (finished steel equivalent),TRUE_STEEL_USE,True Steel Use (finished steel equivalent),consumption,0.15,1.9,2.2,8000000,15000000,high
+Apparent Steel Use (crude steel equivalent),ASU_CRUDE,Apparent Steel Use (crude steel equivalent),consumption,0.15,1.7,2.0,5000000,12000000,high
+Apparent Steel Use (finished steel products),ASU_FINISHED,Apparent Steel Use (finished steel products),consumption,0.10,1.8,2.1,4000000,10000000,high
+# PER CAPITA CONSUMPTION METRICS
+True Steel Use per Capita (kg finished steel equivalent),TRUE_STEEL_PER_CAPITA,True Steel Use per Capita (kg finished steel equivalent),consumption_per_capita,0.02,1.8,0.2,300,600,high
+Apparent Steel Use per Capita (kg crude steel),ASU_CRUDE_PER_CAPITA,Apparent Steel Use per Capita (kg crude steel),consumption_per_capita,0.02,1.6,0.2,200,500,high
+Apparent Steel Use per Capita (kg finished steel products),ASU_FINISHED_PER_CAPITA,Apparent Steel Use per Capita (kg finished steel products),consumption_per_capita,0.02,1.7,0.2,200,500,high
+# EXPORTS (WSA Trade Flow Categories)
+Exports of Iron Ore,EXP_IRON_ORE,Exports of Iron Ore,trade_export,0.04,1.1,0.8,150000000,250000000,low
+Exports of Pig Iron,EXP_PIG_IRON,Exports of Pig Iron,trade_export,0.02,1.0,0.5,0,50000,low
+Exports of Scrap,EXP_SCRAP,Exports of Scrap,trade_export,0.03,1.2,0.9,500000,2000000,medium
+Exports of Ingots and Semis,EXP_INGOTS_SEMIS,Exports of Ingots and Semis,trade_export,0.01,1.1,0.7,0,100000,low
+Exports of Flat Products,EXP_FLAT,Exports of Flat Products,trade_export,0.03,1.3,0.9,100000,2000000,medium
+Exports of Long Products,EXP_LONG,Exports of Long Products,trade_export,0.02,1.2,0.8,50000,1000000,medium
+Exports of Semi-finished and Finished Steel Products,EXP_SEMI_FINISHED,Exports of Semi-finished and Finished Steel Products,trade_export,0.04,1.3,0.9,500000,3000000,medium
+Exports of Tubular Products,EXP_TUBULAR,Exports of Tubular Products,trade_export,0.01,1.2,0.8,50000,500000,low
+# IMPORTS (WSA Trade Flow Categories)
+Imports of Iron Ore,IMP_IRON_ORE,Imports of Iron Ore,trade_import,0.02,1.4,1.2,1000000,5000000,medium
+Imports of Pig Iron,IMP_PIG_IRON,Imports of Pig Iron,trade_import,0.01,1.3,1.1,100000,1000000,low
+Imports of Scrap,IMP_SCRAP,Imports of Scrap,trade_import,0.01,1.2,1.0,10000,100000,low
+Imports of Direct Reduced Iron,IMP_DRI,Imports of Direct Reduced Iron,trade_import,0.01,1.3,1.1,0,50000,low
+Imports of Ingots and Semis,IMP_INGOTS_SEMIS,Imports of Ingots and Semis,trade_import,0.01,1.4,1.2,0,100000,low
+Imports of Flat Products,IMP_FLAT,Imports of Flat Products,trade_import,0.03,1.6,1.4,500000,2000000,high
+Imports of Long Products,IMP_LONG,Imports of Long Products,trade_import,0.02,1.5,1.3,200000,1500000,high
+Imports of Semi-finished and Finished Steel Products,IMP_SEMI_FINISHED,Imports of Semi-finished and Finished Steel Products,trade_import,0.04,1.6,1.4,1000000,4000000,high
+Imports of Tubular Products,IMP_TUBULAR,Imports of Tubular Products,trade_import,0.02,1.5,1.3,200000,1000000,medium
+# INDIRECT TRADE (WSA Embedded Steel in Goods)
+Indirect Exports of Steel,INDIRECT_EXP,Indirect Exports of Steel,trade_indirect,0.02,1.3,0.9,300000,1500000,medium
+Indirect Imports of Steel,INDIRECT_IMP,Indirect Imports of Steel,trade_indirect,0.03,1.7,1.5,2000000,5000000,high
+Indirect Net Exports of Steel,INDIRECT_NET,Indirect Net Exports of Steel,trade_indirect,0.01,1.5,1.2,-4000000,-1000000,medium
